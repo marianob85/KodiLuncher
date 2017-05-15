@@ -5,11 +5,17 @@ node("windows10x64 && development"){
 
 		}
 		stage('Build'){
-
+			bat '''
+				call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\Tools\\VsMSBuildCmd.bat"
+				msbuild KLuncher.sln /t:Rebuild /p:Configuration=Release;Platform="Any CPU" /flp:logfile=warnings.log;warningsonly'''
+		}
+		
+		stage('Compile check'){
+			warnings canComputeNew: false, canResolveRelativePaths: false, defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', messagesPattern: '', parserConfigurations: [[parserName: 'MSBuild', pattern: 'warnings.log']], unHealthy: ''
 		}
 
 		stage('Archive'){
-			// archiveArtifacts artifacts: 'src/*.exe', onlyIfSuccessful: true
+			archiveArtifacts artifacts: 'KLuncher/bin/**.exe', onlyIfSuccessful: true
 		}
 		
 		stage('CleanUp'){
