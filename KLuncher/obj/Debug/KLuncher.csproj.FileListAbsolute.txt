@@ -1,0 +1,8 @@
+D:\Source\GitSource\kodiluncher\KLuncher\KLuncher\bin\Debug\KLuncher.exe.config
+D:\Source\GitSource\kodiluncher\KLuncher\KLuncher\bin\Debug\KLuncher.exe
+D:\Source\GitSource\kodiluncher\KLuncher\KLuncher\bin\Debug\KLuncher.pdb
+D:\Source\GitSource\kodiluncher\KLuncher\KLuncher\obj\Debug\KLuncher.csprojResolveAssemblyReference.cache
+D:\Source\GitSource\kodiluncher\KLuncher\KLuncher\obj\Debug\KLuncher.Properties.Resources.resources
+D:\Source\GitSource\kodiluncher\KLuncher\KLuncher\obj\Debug\KLuncher.csproj.GenerateResource.Cache
+D:\Source\GitSource\kodiluncher\KLuncher\KLuncher\obj\Debug\KLuncher.exe
+D:\Source\GitSource\kodiluncher\KLuncher\KLuncher\obj\Debug\KLuncher.pdb
