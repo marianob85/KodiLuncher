@@ -15,7 +15,7 @@ node("windows10x64 && development"){
 		}
 
 		stage('Archive'){
-			archiveArtifacts artifacts: 'KLuncher/bin/**.exe', onlyIfSuccessful: true
+			archiveArtifacts artifacts: 'KLuncher/bin/**/*.exe', onlyIfSuccessful: true
 		}
 		
 		stage('CleanUp'){

@@ -1,4 +1,4 @@
 *.suo
-/KLuncher/bin/Debug
-/KLuncher/bin/Debug
-/KLuncher/obj/Debug
+/KLuncher/bin/**
+/KLuncher/bin/**
+/KLuncher/obj/**
