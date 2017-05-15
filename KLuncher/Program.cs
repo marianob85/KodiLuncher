@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using KLuncher.Properties;
 
 namespace KLuncher
 {
@@ -22,6 +22,7 @@ namespace KLuncher
             // Show the system tray icon.					
             using (NotifyIcon pi = new NotifyIcon())
             {
+                pi.Icon = Resources.Tray;
                 pi.Visible = true;
 
                 // Make sure the application runs!
