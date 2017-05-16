@@ -25,7 +25,7 @@ pipeline
 		
 		stage('Archive'){
 			steps {
-				archiveArtifacts artifacts: ''KLuncher/bin/**/*.exe', onlyIfSuccessful: true
+				archiveArtifacts artifacts: 'KLuncher/bin/**/*.exe', onlyIfSuccessful: true
 			}
 		}
 		
