@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 using KLuncher.TryIcon;
 
 namespace KLuncher
@@ -18,6 +19,8 @@ namespace KLuncher
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            AllocConsole();
+
             // Show the system tray icon.					
             using( KeyboardHook kh = new KeyboardHook())
             using (ProcessIcon pi = new ProcessIcon())
@@ -28,5 +31,11 @@ namespace KLuncher
                 Application.Run();
             }
         }
+
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool AllocConsole();
+
     }
 }
