@@ -19,6 +19,7 @@ namespace KLuncher
             Application.SetCompatibleTextRenderingDefault(false);
 
             // Show the system tray icon.					
+            using( KeyboardHook kh = new KeyboardHook())
             using (ProcessIcon pi = new ProcessIcon())
             {
                 pi.Display();

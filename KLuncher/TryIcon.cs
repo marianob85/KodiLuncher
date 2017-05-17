@@ -8,29 +8,28 @@ namespace KLuncher
     {
         class ProcessIcon : IDisposable
         {
-            NotifyIcon ni;
+            NotifyIcon m_notificationIcon;
 
             public ProcessIcon()
             {
                 // Instantiate the NotifyIcon object.
-                ni = new NotifyIcon();
+                m_notificationIcon = new NotifyIcon();
             }
 
             public void Dispose()
             {
                 // When the application closes, this will remove the icon from the system tray immediately.
-                ni.Dispose();
+                m_notificationIcon.Dispose();
             }
 
             public void Display()
             {
-                ni.Icon = Resources.Tray;
-                ni.Text = "Kodi luncher";
-                ni.Visible = true;
+                m_notificationIcon.Icon = Resources.Tray;
+                m_notificationIcon.Text = "Kodi luncher";
+                m_notificationIcon.Visible = true;
 
-                ni.ContextMenuStrip = new ContextMenu().Create();
+                m_notificationIcon.ContextMenuStrip = new ContextMenu().Create();
             }
         }
-
     }
 }
