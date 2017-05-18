@@ -26,12 +26,12 @@ private	static IntPtr m_hookID = IntPtr.Zero;
 
 public KeyboardHook()
 {
-    m_hookID = SetHook(m_proc);
+   // m_hookID = SetHook(m_proc);
 }
 
 public void Dispose()
 {
-    UnhookWindowsHookEx(m_hookID);
+   // UnhookWindowsHookEx(m_hookID);
 }
 
 private	static IntPtr SetHook( LowLevelKeyboardProc proc )

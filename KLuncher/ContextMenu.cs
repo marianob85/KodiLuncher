@@ -17,6 +17,13 @@ namespace KLuncher
             ToolStripSeparator sep;
 
             item = new ToolStripMenuItem();
+            item.Text = "Start kodi";
+            item.Click += new EventHandler(test);
+            //item.Image = Resources.Explorer;
+            item.ShortcutKeyDisplayString = "Win+Alt+Enter";
+            menu.Items.Add(item);
+
+            item = new ToolStripMenuItem();
             item.Text = "Settings";
             //item.Click += new EventHandler(Explorer_Click);
             //item.Image = Resources.Explorer;
@@ -47,6 +54,11 @@ namespace KLuncher
         {
             // Quit without further ado.
             Application.Exit();
+        }
+
+        void test( object sender, EventArgs e)
+        {
+
         }
     }
 }
