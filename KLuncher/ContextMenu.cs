@@ -17,11 +17,22 @@ namespace KLuncher
             ToolStripSeparator sep;
 
             item = new ToolStripMenuItem();
-            item.Text = "Start kodi";
-            item.Click += new EventHandler(test);
+            item.Text = "Start Kodi";
+            item.Click += new EventHandler(RunKodi);
             //item.Image = Resources.Explorer;
             item.ShortcutKeyDisplayString = "Win+Alt+Enter";
             menu.Items.Add(item);
+
+            item = new ToolStripMenuItem();
+            item.Text = "Force Close Kodi Now";
+            item.Click += new EventHandler(RunKodi);
+            //item.Image = Resources.Explorer;
+            item.ShortcutKeyDisplayString = "Ctrl+F4";
+            menu.Items.Add(item);
+
+            // Separator.
+            sep = new ToolStripSeparator();
+            menu.Items.Add(sep);
 
             item = new ToolStripMenuItem();
             item.Text = "Settings";
@@ -56,9 +67,9 @@ namespace KLuncher
             Application.Exit();
         }
 
-        void test( object sender, EventArgs e)
+        void RunKodi(object sender, EventArgs e)
         {
-
+            Kodi.Run();
         }
     }
 }
