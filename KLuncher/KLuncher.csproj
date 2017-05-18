@@ -78,7 +78,7 @@
     <Compile Include="Kodi.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StartTimer.cs" />
+    <Compile Include="Timer.cs" />
     <Compile Include="TryIcon.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

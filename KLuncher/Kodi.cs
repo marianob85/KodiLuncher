@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 namespace KLuncher
 {
@@ -28,6 +29,25 @@ namespace KLuncher
             }
         }
 
+        static public void SetFocus()
+        {
+            var kodiProcess = System.Diagnostics.Process.GetProcesses().
+                     Where(pr => pr.ProcessName == "kodi");
+
+            foreach (var process in kodiProcess)
+            {
+                if (!process.HasExited)
+                {
+                    IntPtr handle = GetForegroundWindow();
+                    if (handle != process.MainWindowHandle)
+                    {
+                        Console.WriteLine("Focused");
+                        SetForegroundWindow(process.MainWindowHandle);
+                    }
+                }
+            }
+        }
+
         static public void Terminate()
         {
             var kodiProcess = System.Diagnostics.Process.GetProcesses().
@@ -40,5 +60,11 @@ namespace KLuncher
                 Console.WriteLine("Killed");
             }
         }
+
+        [DllImport("user32.dll")]
+        static extern IntPtr SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        static extern IntPtr GetForegroundWindow();
     }
 }

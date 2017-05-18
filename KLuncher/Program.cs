@@ -23,6 +23,8 @@ namespace KLuncher
 
             AllocConsole();
 
+            Timer kodiStartTimer = new Timer();
+
             // Show the system tray icon.					
             using (KeyboardHook kh = new KeyboardHook())
             using (ProcessIcon pi = new ProcessIcon())
