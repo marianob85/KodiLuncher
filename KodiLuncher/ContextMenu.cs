@@ -44,9 +44,7 @@ namespace KodiLuncher
             item = new ToolStripMenuItem();
             item.Text = "About";
             item.Click += new EventHandler(About_Click);
-
-
-
+            
             //item.Image = Resources.About;
             menu.Items.Add(item);
 
@@ -72,8 +70,9 @@ namespace KodiLuncher
 
         void About_Click(object sender, EventArgs e)
         {
-            Manobit.About options = new Manobit.About(AppDomain.CurrentDomain.GetAssemblies());
-            options.ShowDialog();
+            Manobit.About about = new Manobit.About(AppDomain.CurrentDomain.GetAssemblies());
+            about.StartPosition = FormStartPosition.WindowsDefaultLocation;
+            about.ShowDialog();
         }
 
         void RunKodi(object sender, EventArgs e)

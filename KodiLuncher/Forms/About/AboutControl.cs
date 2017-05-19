@@ -27,7 +27,7 @@ namespace Manobit.Forms
             this.Text = "About " + description.Description;
 
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.Image = KodiLuncher.Properties.Resources.Tray.ToBitmap();
+            pictureBox1.Image = KodiLuncher.Properties.Resources.Kodi;
 
             var link = "http://www.manobit.com/code-beautifier-for-visual-studio/";
             this.linkLabelCopyright.Links.Add( 0, link.Length, link );

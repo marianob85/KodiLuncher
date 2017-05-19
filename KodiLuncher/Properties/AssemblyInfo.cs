@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("KodiLuncher")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Manobit")]
 [assembly: AssemblyProduct("KodiLuncher")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("Mariusz Brzeski mariusz.brzeski@manobit.com")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
