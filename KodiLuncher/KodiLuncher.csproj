@@ -142,6 +142,21 @@
   <ItemGroup>
     <None Include="Resources\Kodi.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Settings.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StatusHelp.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CloseSolution.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\F12_Close_header_32x96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Close_16x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Remote (

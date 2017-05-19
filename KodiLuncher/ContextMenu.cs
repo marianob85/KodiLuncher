@@ -26,7 +26,7 @@ namespace KodiLuncher
             item = new ToolStripMenuItem();
             item.Text = "Force Close Kodi Now";
             item.Click += new EventHandler(RunKodi);
-            //item.Image = Resources.Explorer;
+            item.Image = KodiLuncher.Properties.Resources.Terminate;
             item.ShortcutKeyDisplayString = "Ctrl+F4";
             menu.Items.Add(item);
 
@@ -37,12 +37,13 @@ namespace KodiLuncher
             item = new ToolStripMenuItem();
             item.Text = "Settings";
             //item.Click += new EventHandler(Explorer_Click);
-            //item.Image = Resources.Explorer;
+            item.Image = KodiLuncher.Properties.Resources.Settings.ToBitmap();
             menu.Items.Add(item);
 
             // About.
             item = new ToolStripMenuItem();
             item.Text = "About";
+            item.Image = KodiLuncher.Properties.Resources.StatusHelp.ToBitmap();
             item.Click += new EventHandler(About_Click);
             
             //item.Image = Resources.About;
@@ -56,7 +57,7 @@ namespace KodiLuncher
             item = new ToolStripMenuItem();
             item.Text = "Exit";
             item.Click += new System.EventHandler(Exit_Click);
-            //item.Image = Resources.Exit;
+            item.Image = KodiLuncher.Properties.Resources.Close.ToBitmap();
             menu.Items.Add(item);
 
             return menu;
