@@ -64,20 +64,19 @@ namespace ProgramSettings
             MemoryStream stream = serialize();
 
             RegistryKey reg_key = Registry.CurrentUser.OpenSubKey("Software", true);
-            RegistryKey sub_key = reg_key.CreateSubKey("Manobit");
-            sub_key = sub_key.CreateSubKey("KodiLuncher");
+            RegistryKey sub_keyManobit = reg_key.CreateSubKey("Manobit");
+            RegistryKey sub_key = sub_keyManobit.CreateSubKey("KodiLuncher");
             sub_key.SetValue("Options", stream.ToArray());
         }
 
         static internal Options read()
         {
             RegistryKey reg_key = Registry.CurrentUser.OpenSubKey("Software", true);
-            RegistryKey sub_key = reg_key.CreateSubKey("Manobit");
-            sub_key = reg_key.CreateSubKey("KodiLuncher");
+            RegistryKey sub_keyManobit = reg_key.CreateSubKey("Manobit");
+            RegistryKey sub_key = sub_keyManobit.CreateSubKey("KodiLuncher");
 
             byte[] settings = (byte[])sub_key.GetValue("Options");
             return deserialize(new MemoryStream(settings));
-
         }
 
         private MemoryStream serialize()

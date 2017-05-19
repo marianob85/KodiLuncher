@@ -75,6 +75,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Settings\Nodes\NodeExternalApp.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Nodes\NodeExternalApp.Designer.cs">
+      <DependentUpon>NodeExternalApp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Settings\Nodes\NodeGeneral.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Nodes\NodeGeneral.Designer.cs">
+      <DependentUpon>NodeGeneral.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Settings\Settings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +121,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\About\AboutControl.resx">
       <DependentUpon>AboutControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Settings\Nodes\NodeExternalApp.resx">
+      <DependentUpon>NodeExternalApp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Settings\Nodes\NodeGeneral.resx">
+      <DependentUpon>NodeGeneral.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Settings\Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
@@ -169,9 +187,7 @@
   <ItemGroup>
     <None Include="Resources\Close_16x.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Forms\Settings\Nodes\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Remote (
