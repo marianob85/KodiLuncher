@@ -12,7 +12,9 @@ namespace ProgramSettings
     public class ApplicationSettings
     {
         public Int64 StartDelayMS = 5000;
+        public bool StartDelayEnable = false;
         public Int64 FocusIntervalMS = 5000;
+        public bool FocusIntervalEnable = false;
 
         public ApplicationSettings()
         {
@@ -22,7 +24,9 @@ namespace ProgramSettings
         public override int GetHashCode()
         {
             return StartDelayMS.GetHashCode()
-                    * FocusIntervalMS.GetHashCode() ^ 2;
+                    * StartDelayEnable.GetHashCode() ^ 2
+                    * FocusIntervalMS.GetHashCode() ^ 3
+                    * FocusIntervalEnable.GetHashCode() ^ 4;
         }
 
         public override bool Equals(Object other)
@@ -38,7 +42,10 @@ namespace ProgramSettings
         private bool Equals(ApplicationSettings options)
         {
             return StartDelayMS.Equals(options.StartDelayMS)
-                    && FocusIntervalMS.Equals(options.FocusIntervalMS);
+                    && StartDelayEnable.Equals(options.StartDelayEnable)
+                    && FocusIntervalMS.Equals(options.FocusIntervalMS)
+                    && FocusIntervalEnable.Equals(options.FocusIntervalEnable);
+
         }
     }
 

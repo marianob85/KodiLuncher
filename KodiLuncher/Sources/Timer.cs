@@ -8,16 +8,25 @@ namespace KodiLuncher
 {
     class Timer
     {
+        private ProgramSettings.SettingsContainer m_options = new ProgramSettings.SettingsContainer();
+
         System.Timers.Timer m_startTimer;
         System.Timers.Timer m_FocusTimer;
 
         public Timer()
         {
-            m_startTimer = new System.Timers.Timer(5000);
+            m_options.OptionsChanged += new EventHandler((Object sender, EventArgs e) => CreateTimers());
+
+            m_startTimer = new System.Timers.Timer(m_options.options.applicationSettings.StartDelayMS);
             m_startTimer.Elapsed += OnTimedEvent;
             m_startTimer.Start();
 
-            m_FocusTimer = new System.Timers.Timer(5000);
+            CreateTimers();
+        }
+
+        private void CreateTimers()
+        {
+            m_FocusTimer = new System.Timers.Timer(m_options.options.applicationSettings.FocusIntervalMS);
             m_FocusTimer.Elapsed += onFocusTimer;
             m_FocusTimer.Start();
         }

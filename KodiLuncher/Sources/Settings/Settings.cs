@@ -11,7 +11,7 @@ namespace ProgramSettings
 {
     public class SettingsContainer
     {
-        public event EventHandler onOptionsChanged = delegate { };
+        public event EventHandler OptionsChanged = delegate { };
 
         private Options m_options = new Options();
         private RegistryUtils.RegistryMonitor monitor = new RegistryUtils.RegistryMonitor(RegistryHive.CurrentUser, @"Software\Manobit\KodiLuncher");
@@ -31,7 +31,7 @@ namespace ProgramSettings
 
         private void onRegChanged(Object sender, EventArgs e)
         {
-            onOptionsChanged(this, e);
+            OptionsChanged(this, e);
         }
 
         public Options options
