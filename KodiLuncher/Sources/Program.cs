@@ -21,7 +21,7 @@ namespace KodiLuncher
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            AllocConsole();
+            //AllocConsole();
 
             Timer kodiTimer = new Timer();
 

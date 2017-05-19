@@ -70,7 +70,7 @@ namespace KodiLuncher
                         Console.WriteLine("Triggered");
                     }
                 }
-                else if ( GetAsyncKeyState( Keys.LControlKey) != 0 &&vCode == 115)
+                else if ( GetAsyncKeyState( Keys.LControlKey) != 0 && vCode == 115)
                 {
                     Kodi.Terminate();
                 }

@@ -45,8 +45,6 @@ namespace KodiLuncher
             item.Text = "About";
             item.Image = KodiLuncher.Properties.Resources.StatusHelp.ToBitmap();
             item.Click += new EventHandler(About_Click);
-
-            //item.Image = Resources.About;
             menu.Items.Add(item);
 
             // Separator.
