@@ -76,12 +76,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContextMenu.cs" />
+    <Compile Include="Forms\About\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\About\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\About\AboutControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\About\AboutControl.Designer.cs">
+      <DependentUpon>AboutControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="KeyboardHook.cs" />
     <Compile Include="Kodi.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\VersionAssemblyInfo.cs" />
     <Compile Include="Timer.cs" />
     <Compile Include="TrayIcon.cs" />
+    <EmbeddedResource Include="Forms\About\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\About\AboutControl.resx">
+      <DependentUpon>AboutControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -126,4 +145,19 @@
   xcopy /Y $(TargetPath) \\192.168.1.88\Kluncher
 )</PostBuildEvent>
   </PropertyGroup>
+  <!-- Import of the MSBuildCommunityTask targets -->
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
+  <Target Name="UpdateVersionAssemblyInfo" BeforeTargets="BeforeBuild">
+    <PropertyGroup>
+      <Major>1</Major>
+      <Minor>0</Minor>
+      <Build>0</Build>
+      <Revision>0</Revision>
+      <GitHash>unknown</GitHash>
+    </PropertyGroup>
+    <GitVersion LocalPath="$(SolutionDir)" Short="false">
+      <Output TaskParameter="CommitHash" PropertyName="GitHash" />
+    </GitVersion>
+    <AssemblyInfo CodeLanguage="CS" OutputFile="$(SolutionDir)\KodiLuncher\Properties\VersionAssemblyInfo.cs" AssemblyInformationalVersion="$(Major).$(Minor).$(Build).$(Revision) (git $(GitHash))" AssemblyVersion="$(Major).$(Minor).$(Build).$(Revision)" AssemblyFileVersion="$(Major).$(Minor).$(Build).$(Revision)" />
+  </Target>
 </Project>

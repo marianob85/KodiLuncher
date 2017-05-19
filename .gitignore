@@ -1,4 +1,3 @@
 *.suo
-/KLuncher/bin/*
-/KLuncher/bin/*
-/KLuncher/obj/*
+/KodiLuncher/bin/*
+/KodiLuncher/obj/*
