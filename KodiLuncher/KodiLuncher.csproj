@@ -75,7 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContextMenu.cs" />
+    <Compile Include="Sources\ContextMenu.cs" />
     <Compile Include="Forms\About\About.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,13 +88,13 @@
     <Compile Include="Forms\About\AboutControl.Designer.cs">
       <DependentUpon>AboutControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="KeyboardHook.cs" />
-    <Compile Include="Kodi.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Sources\KeyboardHook.cs" />
+    <Compile Include="Sources\Kodi.cs" />
+    <Compile Include="Sources\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionAssemblyInfo.cs" />
-    <Compile Include="Timer.cs" />
-    <Compile Include="TrayIcon.cs" />
+    <Compile Include="Sources\Timer.cs" />
+    <Compile Include="Sources\TrayIcon.cs" />
     <EmbeddedResource Include="Forms\About\About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
