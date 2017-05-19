@@ -4,7 +4,7 @@
     <RemoteDebugEnabled>false</RemoteDebugEnabled>
     <RemoteDebugMachine>192.168.1.88</RemoteDebugMachine>
     <StartAction>Project</StartAction>
-    <StartProgram>c:\KLuncher\KLuncher.exe</StartProgram>
+    <StartProgram>c:\KLuncher\KodiLuncher.exe</StartProgram>
   </PropertyGroup>
   <PropertyGroup>
     <PublishUrlHistory>publish\</PublishUrlHistory>
@@ -17,7 +17,7 @@
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Remote|AnyCPU'">
-    <StartProgram>c:\KLuncher\KLuncher.exe</StartProgram>
+    <StartProgram>c:\KLuncher\KodiLuncher.exe</StartProgram>
     <RemoteDebugMachine>192.168.1.88</RemoteDebugMachine>
     <StartAction>Program</StartAction>
     <RemoteDebugEnabled>true</RemoteDebugEnabled>

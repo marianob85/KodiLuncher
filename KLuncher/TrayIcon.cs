@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
-using KLuncher.Properties;
+using KodiLuncher.Properties;
 
-namespace KLuncher
+namespace KodiLuncher
 {
-    namespace TryIcon
+    namespace TrayIcon
     {
         class ProcessIcon : IDisposable
         {

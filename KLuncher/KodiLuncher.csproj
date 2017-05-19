@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{DAF319E6-8372-40FE-894C-912CB6F33930}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>KLuncher</RootNamespace>
-    <AssemblyName>KLuncher</AssemblyName>
+    <RootNamespace>KodiLuncher</RootNamespace>
+    <AssemblyName>KodiLuncher</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -81,7 +81,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Timer.cs" />
-    <Compile Include="TryIcon.cs" />
+    <Compile Include="TrayIcon.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

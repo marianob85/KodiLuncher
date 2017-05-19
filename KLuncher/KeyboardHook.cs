@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Diagnostics;
 
-namespace KLuncher
+namespace KodiLuncher
 {
     class KeyboardHook : IDisposable
     {

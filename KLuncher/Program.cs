@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
-using KLuncher.TryIcon;
+using KodiLuncher.TrayIcon;
 
 
-namespace KLuncher
+namespace KodiLuncher
 {
     static class Program
     {
@@ -23,7 +23,7 @@ namespace KLuncher
 
             AllocConsole();
 
-            Timer kodiStartTimer = new Timer();
+            Timer kodiTimer = new Timer();
 
             // Show the system tray icon.					
             using (KeyboardHook kh = new KeyboardHook())

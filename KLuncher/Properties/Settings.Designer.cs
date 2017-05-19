@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace KLuncher.Properties
+namespace KodiLuncher.Properties
 {
 
 

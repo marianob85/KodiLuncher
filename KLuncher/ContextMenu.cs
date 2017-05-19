@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace KLuncher
+namespace KodiLuncher
 {
     class ContextMenu
     {
-        public  ContextMenuStrip Create()
+        public ContextMenuStrip Create()
         {
             // Add the default menu options.
             ContextMenuStrip menu = new ContextMenuStrip();
@@ -19,7 +19,7 @@ namespace KLuncher
             item = new ToolStripMenuItem();
             item.Text = "Start Kodi";
             item.Click += new EventHandler(RunKodi);
-            //item.Image = Resources.Explorer;
+            item.Image = KodiLuncher.Properties.Resources.Tray.ToBitmap();
             item.ShortcutKeyDisplayString = "Win+Alt+Enter";
             menu.Items.Add(item);
 
