@@ -36,7 +36,7 @@ namespace KodiLuncher
 
             item = new ToolStripMenuItem();
             item.Text = "Settings";
-            //item.Click += new EventHandler(Explorer_Click);
+            item.Click += new EventHandler(Settings_Click);
             item.Image = KodiLuncher.Properties.Resources.Settings.ToBitmap();
             menu.Items.Add(item);
 
@@ -45,7 +45,7 @@ namespace KodiLuncher
             item.Text = "About";
             item.Image = KodiLuncher.Properties.Resources.StatusHelp.ToBitmap();
             item.Click += new EventHandler(About_Click);
-            
+
             //item.Image = Resources.About;
             menu.Items.Add(item);
 
@@ -61,6 +61,13 @@ namespace KodiLuncher
             menu.Items.Add(item);
 
             return menu;
+        }
+
+        void Settings_Click(object sender, EventArgs e)
+        {
+            KodiLuncher.Forms.Settings.Settings settings = new KodiLuncher.Forms.Settings.Settings();
+            settings.StartPosition = FormStartPosition.WindowsDefaultLocation;
+            settings.ShowDialog();
         }
 
         void Exit_Click(object sender, EventArgs e)
