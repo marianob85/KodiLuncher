@@ -30,11 +30,13 @@
         {
             this.components = new System.ComponentModel.Container();
             this.listView = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.preventFocus = new System.Windows.Forms.CheckBox();
+            this.tbAppPath = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,13 +52,23 @@
             this.listView.ContextMenuStrip = this.contextMenuStrip1;
             this.listView.FullRowSelect = true;
             this.listView.GridLines = true;
-            this.listView.LabelEdit = true;
             this.listView.Location = new System.Drawing.Point(0, 3);
             this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(372, 253);
+            this.listView.Size = new System.Drawing.Size(372, 227);
             this.listView.TabIndex = 0;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = System.Windows.Forms.View.Details;
+            this.listView.SelectedIndexChanged += new System.EventHandler(this.listView_SelectedIndexChanged);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "App path";
+            this.columnHeader1.Width = 133;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Prevent focus";
+            this.columnHeader2.Width = 88;
             // 
             // contextMenuStrip1
             // 
@@ -80,24 +92,38 @@
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
-            // columnHeader1
+            // preventFocus
             // 
-            this.columnHeader1.Text = "App path";
+            this.preventFocus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.preventFocus.AutoSize = true;
+            this.preventFocus.Location = new System.Drawing.Point(280, 238);
+            this.preventFocus.Name = "preventFocus";
+            this.preventFocus.Size = new System.Drawing.Size(92, 17);
+            this.preventFocus.TabIndex = 1;
+            this.preventFocus.Text = "Prevent focus";
+            this.preventFocus.UseVisualStyleBackColor = true;
             // 
-            // columnHeader2
+            // tbAppPath
             // 
-            this.columnHeader2.Text = "Prevent focus";
-            this.columnHeader2.Width = 88;
+            this.tbAppPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbAppPath.Location = new System.Drawing.Point(0, 236);
+            this.tbAppPath.Name = "tbAppPath";
+            this.tbAppPath.Size = new System.Drawing.Size(274, 20);
+            this.tbAppPath.TabIndex = 2;
             // 
             // NodeExternalApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.tbAppPath);
+            this.Controls.Add(this.preventFocus);
             this.Controls.Add(this.listView);
             this.Name = "NodeExternalApp";
             this.Size = new System.Drawing.Size(375, 259);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -109,5 +135,7 @@
         private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.CheckBox preventFocus;
+        private System.Windows.Forms.TextBox tbAppPath;
     }
 }

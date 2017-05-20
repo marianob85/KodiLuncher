@@ -28,11 +28,10 @@ namespace KodiLuncher.Forms.Settings.Nodes
 
             foreach( var item in m_options.options.applicationSettings.ExtApp)
             {
-                ListViewItem test = new ListViewItem();
+                ListViewItem listItem = new ListViewItem(item.AppPath);
+                listItem.SubItems.Add(item.PreventFocus.ToString());
 
-                test.SubItems.Add();
-
-                listView.Items.Add(test);
+                listView.Items.Add(listItem).Selected = true;
             }
         }
 
@@ -44,6 +43,11 @@ namespace KodiLuncher.Forms.Settings.Nodes
         }
 
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listView_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
