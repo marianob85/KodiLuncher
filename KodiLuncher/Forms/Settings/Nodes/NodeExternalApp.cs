@@ -24,12 +24,23 @@ namespace KodiLuncher.Forms.Settings.Nodes
 
         private void RefreshValues()
         {
+            listView.Items.Clear();
 
+            foreach( var item in m_options.options.applicationSettings.ExtApp)
+            {
+                ListViewItem test = new ListViewItem();
+
+                test.SubItems.Add();
+
+                listView.Items.Add(test);
+            }
         }
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            m_options.options.applicationSettings.ExtApp.Add(new ProgramSettings.ExternalAppSettings()) ;
 
+            RefreshValues();
         }
 
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)

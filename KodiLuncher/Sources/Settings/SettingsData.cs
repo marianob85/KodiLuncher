@@ -9,12 +9,42 @@ using System.ComponentModel;
 
 namespace ProgramSettings
 {
+    public class ExternalAppSettings
+    {
+        public String AppPath = String.Empty;
+        public bool PreventFocus = false;
+
+        public override int GetHashCode()
+        {
+            return AppPath.GetHashCode()
+                    * PreventFocus.GetHashCode() ^ 2;
+        }
+
+        public override bool Equals(Object other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            if (this.GetType() != other.GetType())
+                return false;
+
+            return Equals((ApplicationSettings)other);
+        }
+
+        private bool Equals(ApplicationSettings options)
+        {
+            return AppPath.Equals(options.StartDelayMS)
+                    && PreventFocus.Equals(options.StartDelayEnable);
+        }
+    }
+
+
     public class ApplicationSettings
     {
         public Int64 StartDelayMS = 5000;
         public bool StartDelayEnable = false;
         public Int64 FocusIntervalMS = 5000;
         public bool FocusIntervalEnable = false;
+        public List<ExternalAppSettings> ExtApp = new List<ExternalAppSettings>();
 
         public ApplicationSettings()
         {
@@ -26,7 +56,8 @@ namespace ProgramSettings
             return StartDelayMS.GetHashCode()
                     * StartDelayEnable.GetHashCode() ^ 2
                     * FocusIntervalMS.GetHashCode() ^ 3
-                    * FocusIntervalEnable.GetHashCode() ^ 4;
+                    * FocusIntervalEnable.GetHashCode() ^ 4
+                    * ExtApp.GetHashCode();
         }
 
         public override bool Equals(Object other)
@@ -44,8 +75,8 @@ namespace ProgramSettings
             return StartDelayMS.Equals(options.StartDelayMS)
                     && StartDelayEnable.Equals(options.StartDelayEnable)
                     && FocusIntervalMS.Equals(options.FocusIntervalMS)
-                    && FocusIntervalEnable.Equals(options.FocusIntervalEnable);
-
+                    && FocusIntervalEnable.Equals(options.FocusIntervalEnable)
+                    && ExtApp.TrueForAll(options.ExtApp.Contains) && options.ExtApp.TrueForAll(ExtApp.Contains);
         }
     }
 
