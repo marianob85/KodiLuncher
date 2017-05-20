@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Reflection.AssemblyInformationalVersion("1.0.0.0 (git fc557546661634b96c013d18de25ed8f36e88567)")]
+[assembly: System.Reflection.AssemblyInformationalVersion("1.0.0.0 (git 41d8cc9313873b5a3357c9297d36c40e9a80e759)")]
 [assembly: System.Reflection.AssemblyVersion("1.0.0.0")]
 [assembly: System.Reflection.AssemblyFileVersion("1.0.0.0")]
 

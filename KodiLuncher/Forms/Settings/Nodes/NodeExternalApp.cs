@@ -19,6 +19,8 @@ namespace KodiLuncher.Forms.Settings.Nodes
             m_options = options;
             m_options.OptionsChanged += new EventHandler((Object sender, EventArgs e) => RefreshValues());
             InitializeComponent();
+            tbAppPath.Enabled = false;
+            preventFocus.Enabled = false;
             RefreshValues();
         }
 
@@ -30,26 +32,113 @@ namespace KodiLuncher.Forms.Settings.Nodes
             {
                 ListViewItem listItem = new ListViewItem(item.AppPath);
                 listItem.SubItems.Add(item.PreventFocus.ToString());
+                listItem.Tag = item;
 
-                listView.Items.Add(listItem).Selected = true;
+                listView.Items.Add(listItem);
             }
         }
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            m_options.options.applicationSettings.ExtApp.Add(new ProgramSettings.ExternalAppSettings()) ;
-
+            var newApp = new ProgramSettings.ExternalAppSettings();
+            m_options.options.applicationSettings.ExtApp.Add(newApp);
             RefreshValues();
+
+            // Find new added
+            foreach (ListViewItem selectedItem in listView.Items)
+            {
+                if( selectedItem.Tag as ProgramSettings.ExternalAppSettings == newApp )
+                {
+                    selectedItem.Selected = true;
+                    break;
+                }
+            }
         }
 
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            foreach (ListViewItem selectedItem in listView.SelectedItems)
+            {
+                var selectedApp = selectedItem.Tag as ProgramSettings.ExternalAppSettings;
+                m_options.options.applicationSettings.ExtApp.Remove(selectedApp);
+            }
 
+            RefreshValues();
         }
 
         private void listView_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ListView lw = sender as ListView;
 
+            this.tbAppPath.Clear();
+            this.preventFocus.Checked = false;
+
+            if ( lw.SelectedItems.Count == 1 )
+            {
+                ProgramSettings.ExternalAppSettings appSettings = lw.SelectedItems[0].Tag as ProgramSettings.ExternalAppSettings;
+                this.tbAppPath.Text = appSettings.AppPath;
+            }
+            this.tbAppPath.Enabled = lw.SelectedItems.Count == 1;
+            this.preventFocus.Enabled = lw.SelectedItems.Count > 0;
+
+            bool? checkValue = null;
+
+            foreach(ListViewItem selectedItem in lw.SelectedItems)
+            {
+                ProgramSettings.ExternalAppSettings appSettings = selectedItem.Tag as ProgramSettings.ExternalAppSettings;
+                if (!checkValue.HasValue)
+                    checkValue = appSettings.PreventFocus;
+                else if (checkValue != appSettings.PreventFocus)
+                {
+                    checkValue = null;
+                    break;
+                }
+            }
+
+            if (checkValue.HasValue)
+                this.preventFocus.Checked = checkValue.Value;
+            else
+                this.preventFocus.CheckState =  CheckState.Indeterminate;
+        }
+
+        private void tbAppPath_TextChanged(object sender, EventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+
+            if (textBox.Focused)
+            {
+                ProgramSettings.ExternalAppSettings appSettings = listView.SelectedItems[0].Tag as ProgramSettings.ExternalAppSettings;
+
+                appSettings.AppPath = textBox.Text;
+                listView.SelectedItems[0].SubItems[0].Text = appSettings.AppPath;
+            }
+        }
+
+        private void preventFocus_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+
+            if (checkBox.Focused)
+            {
+                ProgramSettings.ExternalAppSettings appSettings = listView.SelectedItems[0].Tag as ProgramSettings.ExternalAppSettings;
+
+                appSettings.PreventFocus = checkBox.Checked;
+
+                listView.SelectedItems[0].SubItems[1].Text = appSettings.PreventFocus.ToString();
+            }
+        }
+
+        private void browseProgram_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.OpenFileDialog AppFileDialog = new System.Windows.Forms.OpenFileDialog();
+
+            AppFileDialog.Filter += "Executable|*.exe";
+            AppFileDialog.Multiselect = false;
+
+            if (AppFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.tbAppPath.Text = AppFileDialog.FileName;
+            }
         }
     }
 }

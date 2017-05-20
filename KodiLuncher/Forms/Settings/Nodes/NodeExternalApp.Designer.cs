@@ -37,6 +37,7 @@
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preventFocus = new System.Windows.Forms.CheckBox();
             this.tbAppPath = new System.Windows.Forms.TextBox();
+            this.browseProgram = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,6 +53,7 @@
             this.listView.ContextMenuStrip = this.contextMenuStrip1;
             this.listView.FullRowSelect = true;
             this.listView.GridLines = true;
+            this.listView.HideSelection = false;
             this.listView.Location = new System.Drawing.Point(0, 3);
             this.listView.Name = "listView";
             this.listView.Size = new System.Drawing.Size(372, 227);
@@ -96,12 +98,15 @@
             // 
             this.preventFocus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.preventFocus.AutoSize = true;
+            this.preventFocus.Checked = true;
+            this.preventFocus.CheckState = System.Windows.Forms.CheckState.Indeterminate;
             this.preventFocus.Location = new System.Drawing.Point(280, 238);
             this.preventFocus.Name = "preventFocus";
             this.preventFocus.Size = new System.Drawing.Size(92, 17);
             this.preventFocus.TabIndex = 1;
             this.preventFocus.Text = "Prevent focus";
             this.preventFocus.UseVisualStyleBackColor = true;
+            this.preventFocus.CheckedChanged += new System.EventHandler(this.preventFocus_CheckedChanged);
             // 
             // tbAppPath
             // 
@@ -109,13 +114,25 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbAppPath.Location = new System.Drawing.Point(0, 236);
             this.tbAppPath.Name = "tbAppPath";
-            this.tbAppPath.Size = new System.Drawing.Size(274, 20);
+            this.tbAppPath.Size = new System.Drawing.Size(241, 20);
             this.tbAppPath.TabIndex = 2;
+            this.tbAppPath.TextChanged += new System.EventHandler(this.tbAppPath_TextChanged);
+            // 
+            // browseProgram
+            // 
+            this.browseProgram.Location = new System.Drawing.Point(247, 234);
+            this.browseProgram.Name = "browseProgram";
+            this.browseProgram.Size = new System.Drawing.Size(27, 23);
+            this.browseProgram.TabIndex = 3;
+            this.browseProgram.Text = ">";
+            this.browseProgram.UseVisualStyleBackColor = true;
+            this.browseProgram.Click += new System.EventHandler(this.browseProgram_Click);
             // 
             // NodeExternalApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.browseProgram);
             this.Controls.Add(this.tbAppPath);
             this.Controls.Add(this.preventFocus);
             this.Controls.Add(this.listView);
@@ -137,5 +154,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.CheckBox preventFocus;
         private System.Windows.Forms.TextBox tbAppPath;
+        private System.Windows.Forms.Button browseProgram;
     }
 }
