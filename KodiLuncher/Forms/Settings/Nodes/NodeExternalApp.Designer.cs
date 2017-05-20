@@ -117,6 +117,7 @@
             this.tbAppPath.Size = new System.Drawing.Size(241, 20);
             this.tbAppPath.TabIndex = 2;
             this.tbAppPath.TextChanged += new System.EventHandler(this.tbAppPath_TextChanged);
+            this.tbAppPath.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbAppPath_KeyPress);
             // 
             // browseProgram
             // 

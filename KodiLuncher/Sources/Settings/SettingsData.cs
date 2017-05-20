@@ -27,13 +27,13 @@ namespace ProgramSettings
             if (this.GetType() != other.GetType())
                 return false;
 
-            return Equals((ApplicationSettings)other);
+            return Equals((ExternalAppSettings)other);
         }
 
-        private bool Equals(ApplicationSettings options)
+        private bool Equals(ExternalAppSettings options)
         {
-            return AppPath.Equals(options.StartDelayMS)
-                    && PreventFocus.Equals(options.StartDelayEnable);
+            return AppPath.Equals(options.AppPath)
+                    && PreventFocus.Equals(options.PreventFocus);
         }
     }
 
@@ -45,6 +45,7 @@ namespace ProgramSettings
         public Int64 FocusIntervalMS = 5000;
         public bool FocusIntervalEnable = false;
         public List<ExternalAppSettings> ExtApp = new List<ExternalAppSettings>();
+        public String Application = String.Empty;
 
         public ApplicationSettings()
         {
@@ -57,7 +58,8 @@ namespace ProgramSettings
                     * StartDelayEnable.GetHashCode() ^ 2
                     * FocusIntervalMS.GetHashCode() ^ 3
                     * FocusIntervalEnable.GetHashCode() ^ 4
-                    * ExtApp.GetHashCode();
+                    * ExtApp.GetHashCode() ^ 5
+                    * Application.GetHashCode() ^6 ;
         }
 
         public override bool Equals(Object other)
@@ -76,7 +78,8 @@ namespace ProgramSettings
                     && StartDelayEnable.Equals(options.StartDelayEnable)
                     && FocusIntervalMS.Equals(options.FocusIntervalMS)
                     && FocusIntervalEnable.Equals(options.FocusIntervalEnable)
-                    && ExtApp.TrueForAll(options.ExtApp.Contains) && options.ExtApp.TrueForAll(ExtApp.Contains);
+                    && ExtApp.TrueForAll(options.ExtApp.Contains) && options.ExtApp.TrueForAll(ExtApp.Contains)
+                    && Application.Equals(options.Application);
         }
     }
 

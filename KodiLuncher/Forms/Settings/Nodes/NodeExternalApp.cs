@@ -21,10 +21,11 @@ namespace KodiLuncher.Forms.Settings.Nodes
             InitializeComponent();
             tbAppPath.Enabled = false;
             preventFocus.Enabled = false;
+            browseProgram.Enabled = false;
             RefreshValues();
         }
 
-        private void RefreshValues()
+        private void RefreshValues(ProgramSettings.ExternalAppSettings selectedApp = null)
         {
             listView.Items.Clear();
 
@@ -36,7 +37,16 @@ namespace KodiLuncher.Forms.Settings.Nodes
 
                 listView.Items.Add(listItem);
             }
+
+
+            foreach (ListViewItem item in listView.Items)
+            {
+                if (item.Tag as ProgramSettings.ExternalAppSettings == selectedApp)
+                    item.Selected = true;
+            }
         }
+
+        
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -80,7 +90,7 @@ namespace KodiLuncher.Forms.Settings.Nodes
             }
             this.tbAppPath.Enabled = lw.SelectedItems.Count == 1;
             this.preventFocus.Enabled = lw.SelectedItems.Count > 0;
-
+            browseProgram.Enabled = lw.SelectedItems.Count == 1;
             bool? checkValue = null;
 
             foreach(ListViewItem selectedItem in lw.SelectedItems)
@@ -138,6 +148,17 @@ namespace KodiLuncher.Forms.Settings.Nodes
             if (AppFileDialog.ShowDialog() == DialogResult.OK)
             {
                 this.tbAppPath.Text = AppFileDialog.FileName;
+                ProgramSettings.ExternalAppSettings app = listView.SelectedItems[0].Tag as ProgramSettings.ExternalAppSettings;
+                app.AppPath = AppFileDialog.FileName;
+                RefreshValues(app);
+            }
+        }
+
+        private void tbAppPath_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Array.IndexOf(System.IO.Path.GetInvalidPathChars(), e.KeyChar) > -1 && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
     }

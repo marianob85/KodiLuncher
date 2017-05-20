@@ -33,6 +33,8 @@ namespace KodiLuncher.Forms.Settings.Nodes
             m_kodiDelayEnable.Checked = m_options.options.applicationSettings.StartDelayEnable;
             m_kodiDelay.Text = m_options.options.applicationSettings.StartDelayMS.ToString();
             m_kodiDelay.Enabled = m_kodiDelayEnable.Checked;
+
+            m_application.Text = m_options.options.applicationSettings.Application;
         }
 
         private void m_kodiDelay_TextChanged(object sender, EventArgs e)
@@ -57,6 +59,37 @@ namespace KodiLuncher.Forms.Settings.Nodes
         {
             m_options.options.applicationSettings.FocusIntervalEnable = (sender as CheckBox).Checked;
             m_focusInterval.Enabled = m_options.options.applicationSettings.FocusIntervalEnable;
+        }
+
+        private void m_application_TextChanged(object sender, EventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            m_options.options.applicationSettings.Application = textBox.Text;
+        }
+
+        private void m_browse_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.OpenFileDialog AppFileDialog = new System.Windows.Forms.OpenFileDialog();
+
+            AppFileDialog.Filter += "Executable|*.exe";
+            AppFileDialog.Multiselect = false;
+
+            if (AppFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                m_options.options.applicationSettings.Application = AppFileDialog.FileName;
+                m_application.Text = AppFileDialog.FileName;
+
+
+
+            }
+        }
+
+        private void m_application_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Array.IndexOf(System.IO.Path.GetInvalidPathChars(), e.KeyChar) > -1 && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

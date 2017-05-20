@@ -31,6 +31,7 @@ namespace ProgramSettings
 
         private void onRegChanged(Object sender, EventArgs e)
         {
+            read();
             OptionsChanged(this, e);
         }
 

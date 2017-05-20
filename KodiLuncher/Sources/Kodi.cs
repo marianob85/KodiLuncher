@@ -7,14 +7,23 @@ using System.Runtime.InteropServices;
 
 namespace KodiLuncher
 {
-    class Kodi
+    public class Kodi
     {
-        static public void Run()
+        private ProgramSettings.SettingsContainer m_options = new ProgramSettings.SettingsContainer();
+
+        public Kodi()
+        {
+        }
+
+        public void Run()
         {
             System.Diagnostics.Process processCodeBeautifier = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfoCodeBeautifier = new System.Diagnostics.ProcessStartInfo();
 
-            startInfoCodeBeautifier.FileName = "c:/Program Files/Kodi/kodi.exe";
+            if (!System.IO.File.Exists(m_options.options.applicationSettings.Application))
+                return;
+
+            startInfoCodeBeautifier.FileName = m_options.options.applicationSettings.Application;
             processCodeBeautifier.StartInfo = startInfoCodeBeautifier;
 
             try
@@ -29,7 +38,7 @@ namespace KodiLuncher
             }
         }
 
-        static public void SetFocus()
+        public void SetFocus()
         {
             var kodiProcess = System.Diagnostics.Process.GetProcesses().
                      Where(pr => pr.ProcessName == "kodi");
@@ -48,7 +57,7 @@ namespace KodiLuncher
             }
         }
 
-        static public void Terminate()
+        public void Terminate()
         {
             var kodiProcess = System.Diagnostics.Process.GetProcesses().
                                  Where(pr => pr.ProcessName == "kodi");

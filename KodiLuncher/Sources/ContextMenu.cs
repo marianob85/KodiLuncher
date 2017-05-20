@@ -83,7 +83,7 @@ namespace KodiLuncher
 
         void RunKodi(object sender, EventArgs e)
         {
-            Kodi.Run();
+            new Kodi().Run();
         }
     }
 }
