@@ -20,6 +20,8 @@ namespace KodiLuncher.Forms.Settings
         {
             InitializeComponent();
 
+            this.Icon = KodiLuncher.Properties.Resources.Tray;
+
             m_treeView.AfterSelect += new TreeViewEventHandler(EventNodeAfterSelect);
 
             CreateListView();

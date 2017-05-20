@@ -19,17 +19,18 @@ namespace KodiLuncher.Forms.Settings.Nodes
             m_options = options;
             m_options.OptionsChanged += new EventHandler((Object sender, EventArgs e) => RefreshValues());
             InitializeComponent();
-            tbAppPath.Enabled = false;
-            preventFocus.Enabled = false;
-            browseProgram.Enabled = false;
             RefreshValues();
         }
 
         private void RefreshValues(ProgramSettings.ExternalAppSettings selectedApp = null)
         {
             listView.Items.Clear();
+            tbAppPath.Clear();
+            tbAppPath.Enabled = false;
+            preventFocus.Enabled = false;
+            browseProgram.Enabled = false;
 
-            foreach( var item in m_options.options.applicationSettings.ExtApp)
+            foreach ( var item in m_options.options.applicationSettings.ExtApp)
             {
                 ListViewItem listItem = new ListViewItem(item.AppPath);
                 listItem.SubItems.Add(item.PreventFocus.ToString());
@@ -37,7 +38,6 @@ namespace KodiLuncher.Forms.Settings.Nodes
 
                 listView.Items.Add(listItem);
             }
-
 
             foreach (ListViewItem item in listView.Items)
             {
