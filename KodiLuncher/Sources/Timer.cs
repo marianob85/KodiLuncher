@@ -55,7 +55,7 @@ namespace KodiLuncher
             {
                 foreach (System.Diagnostics.Process process in System.Diagnostics.Process.GetProcesses())
                 {
-                    if (GetProcessName( process.Id ) == app.AppPath)
+                    if ( app.PreventFocus && GetProcessName( process.Id ) == app.AppPath)
                         return;
                 }
             }

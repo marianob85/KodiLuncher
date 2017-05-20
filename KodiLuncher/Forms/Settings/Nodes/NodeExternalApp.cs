@@ -161,5 +161,10 @@ namespace KodiLuncher.Forms.Settings.Nodes
                 e.Handled = true;
             }
         }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+            this.contextMenuStrip1.Items["removeToolStripMenuItem"].Enabled = listView.SelectedItems.Count > 0;
+        }
     }
 }
