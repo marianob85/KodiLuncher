@@ -127,8 +127,6 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(578, 357);
             this.Name = "Settings";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.Text = "Settings";
             this.ResumeLayout(false);
 

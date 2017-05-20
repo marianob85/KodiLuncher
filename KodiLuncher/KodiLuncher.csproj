@@ -75,6 +75,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Settings\Nodes\NodeCec.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Nodes\NodeCec.Designer.cs">
+      <DependentUpon>NodeCec.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Settings\Nodes\NodeExternalApp.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -121,6 +127,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\About\AboutControl.resx">
       <DependentUpon>AboutControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Settings\Nodes\NodeCec.resx">
+      <DependentUpon>NodeCec.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Settings\Nodes\NodeExternalApp.resx">
       <DependentUpon>NodeExternalApp.cs</DependentUpon>

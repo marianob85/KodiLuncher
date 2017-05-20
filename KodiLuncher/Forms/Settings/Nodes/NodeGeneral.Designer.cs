@@ -41,22 +41,22 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(160, 13);
+            this.label1.Size = new System.Drawing.Size(103, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Autostart kodi delay ( 0 disable ):";
+            this.label1.Text = "Autostart kodi delay:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(13, 39);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(154, 13);
+            this.label2.Size = new System.Drawing.Size(97, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Kodi focus interval ( 0 disable ):";
+            this.label2.Text = "Kodi focus interval:";
             // 
             // m_kodiDelay
             // 
-            this.m_kodiDelay.Location = new System.Drawing.Point(180, 10);
+            this.m_kodiDelay.Location = new System.Drawing.Point(122, 10);
             this.m_kodiDelay.Name = "m_kodiDelay";
             this.m_kodiDelay.Size = new System.Drawing.Size(100, 20);
             this.m_kodiDelay.TabIndex = 2;
@@ -64,7 +64,7 @@
             // 
             // m_focusInterval
             // 
-            this.m_focusInterval.Location = new System.Drawing.Point(180, 36);
+            this.m_focusInterval.Location = new System.Drawing.Point(122, 36);
             this.m_focusInterval.Name = "m_focusInterval";
             this.m_focusInterval.Size = new System.Drawing.Size(100, 20);
             this.m_focusInterval.TabIndex = 3;
@@ -73,7 +73,7 @@
             // m_kodiDelayEnable
             // 
             this.m_kodiDelayEnable.AutoSize = true;
-            this.m_kodiDelayEnable.Location = new System.Drawing.Point(286, 13);
+            this.m_kodiDelayEnable.Location = new System.Drawing.Point(228, 13);
             this.m_kodiDelayEnable.Name = "m_kodiDelayEnable";
             this.m_kodiDelayEnable.Size = new System.Drawing.Size(15, 14);
             this.m_kodiDelayEnable.TabIndex = 4;
@@ -83,7 +83,7 @@
             // m_focusIntervalEnable
             // 
             this.m_focusIntervalEnable.AutoSize = true;
-            this.m_focusIntervalEnable.Location = new System.Drawing.Point(286, 39);
+            this.m_focusIntervalEnable.Location = new System.Drawing.Point(228, 39);
             this.m_focusIntervalEnable.Name = "m_focusIntervalEnable";
             this.m_focusIntervalEnable.Size = new System.Drawing.Size(15, 14);
             this.m_focusIntervalEnable.TabIndex = 5;
