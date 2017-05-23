@@ -25,7 +25,7 @@ pipeline
 		
 		stage('Archive'){
 			steps {
-				archiveArtifacts artifacts: 'KodiLuncher/bin/Release/KodiLuncher.exe', caseSensitive: false, defaultExcludes: false, onlyIfSuccessful: true
+				archive 'KodiLuncher/bin/Release/KodiLuncher.exe'
 			}
 		}
 		
