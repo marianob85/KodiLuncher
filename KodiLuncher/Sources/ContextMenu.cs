@@ -9,10 +9,13 @@ namespace KodiLuncher
 {
     class ContextMenu
     {
+        public static bool contextDraw = false;
+
         public ContextMenuStrip Create()
         {
             // Add the default menu options.
             ContextMenuStrip menu = new ContextMenuStrip();
+            menu.VisibleChanged += Menu_VisibleChanged;
             ToolStripMenuItem item;
             ToolStripSeparator sep;
 
@@ -59,6 +62,13 @@ namespace KodiLuncher
             menu.Items.Add(item);
 
             return menu;
+        }
+
+        private void Menu_VisibleChanged(object sender, EventArgs e)
+        {
+            var cm = sender as ContextMenuStrip;
+
+            contextDraw = cm.Visible;
         }
 
         void Settings_Click(object sender, EventArgs e)

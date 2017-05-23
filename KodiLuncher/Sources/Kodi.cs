@@ -40,6 +40,9 @@ namespace KodiLuncher
 
         public void SetFocus()
         {
+            if (KodiLuncher.ContextMenu.contextDraw)
+                return;
+
             var kodiProcess = System.Diagnostics.Process.GetProcesses().
                      Where(pr => pr.ProcessName == "kodi");
 
