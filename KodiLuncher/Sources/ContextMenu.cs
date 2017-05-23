@@ -25,7 +25,7 @@ namespace KodiLuncher
 
             item = new ToolStripMenuItem();
             item.Text = "Force Close Kodi Now";
-            item.Click += new EventHandler(RunKodi);
+            item.Click += new EventHandler(TerminateKodi);
             item.Image = KodiLuncher.Properties.Resources.Terminate;
             item.ShortcutKeyDisplayString = "Ctrl+F4";
             menu.Items.Add(item);
@@ -84,6 +84,11 @@ namespace KodiLuncher
         void RunKodi(object sender, EventArgs e)
         {
             new Kodi().Run();
+        }
+
+        void TerminateKodi(object sender, EventArgs e)
+        {
+            new Kodi().Terminate();
         }
     }
 }
