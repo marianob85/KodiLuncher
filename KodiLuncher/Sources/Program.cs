@@ -23,7 +23,22 @@ namespace KodiLuncher
 
             //AllocConsole();
 
-            Timer kodiTimer = new Timer();
+            String[] arguments = Environment.GetCommandLineArgs();
+            bool boot = false;
+
+            try
+            {
+                if ( arguments.Length > 0)
+                {
+                    var parsedArgs = arguments.Select(s => s.Split(new[] { ':' }, 1)).ToDictionary(s => s[0], s => s[1]);
+                    boot = Boolean.Parse(parsedArgs["boot"]);
+                }
+            }
+            catch (System.Exception)
+            { }
+
+
+            Timer kodiTimer = new Timer(boot);
 
             // Show the system tray icon.					
             using (KeyboardHook kh = new KeyboardHook())

@@ -15,11 +15,11 @@ namespace KodiLuncher
         System.Timers.Timer m_startTimer;
         System.Timers.Timer m_FocusTimer;
 
-        public Timer()
+        public Timer( bool boot )
         {
             m_options.OptionsChanged += new EventHandler((Object sender, EventArgs e) => CreateTimers());
 
-            if (m_options.options.applicationSettings.StartDelayEnable)
+            if (m_options.options.applicationSettings.StartDelayEnable && boot)
             {
                 m_startTimer = new System.Timers.Timer(m_options.options.applicationSettings.StartDelayMS);
                 m_startTimer.Elapsed += OnTimedEvent;
