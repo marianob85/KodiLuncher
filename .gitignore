@@ -1,3 +1,4 @@
 *.suo
 /KodiLuncher/bin/*
 /KodiLuncher/obj/*
+/KodiLuncher.exe

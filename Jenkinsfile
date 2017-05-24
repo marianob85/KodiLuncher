@@ -25,7 +25,7 @@ pipeline
 		
 		stage('Archive'){
 			steps {
-				bat 'copy KodiLuncher/bin/Release/KodiLuncher.exe ./KodiLuncher.exe'
+				bat 'copy KodiLuncher\bin\Release\KodiLuncher.exe .\KodiLuncher.exe /Y'
 				archiveArtifacts artifacts: 'KodiLuncher.exe', caseSensitive: false, defaultExcludes: false, onlyIfSuccessful: true
 			}
 		}
