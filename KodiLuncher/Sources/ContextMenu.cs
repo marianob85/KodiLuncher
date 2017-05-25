@@ -10,7 +10,6 @@ namespace KodiLuncher
     class ContextMenu
     {
         public static bool contextDraw = false;
-
         public ContextMenuStrip Create()
         {
             // Add the default menu options.
@@ -38,6 +37,12 @@ namespace KodiLuncher
             menu.Items.Add(sep);
 
             item = new ToolStripMenuItem();
+            item.Text = "Start with windows";
+            item.Click += new EventHandler(SwitchAppAutoStart);
+            item.Checked = new Sources.AutoStart().Enable;
+            menu.Items.Add(item);
+
+            item = new ToolStripMenuItem();
             item.Text = "Settings";
             item.Click += new EventHandler(Settings_Click);
             item.Image = KodiLuncher.Properties.Resources.Settings.ToBitmap();
@@ -62,6 +67,16 @@ namespace KodiLuncher
             menu.Items.Add(item);
 
             return menu;
+        }
+
+        private void SwitchAppAutoStart(object sender, EventArgs e)
+        { 
+            ToolStripMenuItem obj = sender as ToolStripMenuItem;
+            var autoStart = new Sources.AutoStart();
+            autoStart.Enable = !autoStart.Enable;
+
+            obj.Checked = autoStart.Enable;
+            
         }
 
         private void Menu_VisibleChanged(object sender, EventArgs e)
