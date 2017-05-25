@@ -5,7 +5,7 @@
     <RemoteDebugMachine>192.168.1.88</RemoteDebugMachine>
     <StartAction>Project</StartAction>
     <StartProgram>c:\KLuncher\KodiLuncher.exe</StartProgram>
-    <StartArguments>boot:True</StartArguments>
+    <StartArguments>-b</StartArguments>
   </PropertyGroup>
   <PropertyGroup>
     <PublishUrlHistory>publish\</PublishUrlHistory>

@@ -22,21 +22,12 @@ namespace KodiLuncher
             Application.SetCompatibleTextRenderingDefault(false);
 
             //AllocConsole();
-
-            String[] arguments = Environment.GetCommandLineArgs();
             bool boot = false;
 
-            try
-            {
-                if ( arguments.Length > 0)
-                {
-                    var parsedArgs = arguments.Select(s => s.Split(new[] { ':' }, 1)).ToDictionary(s => s[0], s => s[1]);
-                    boot = Boolean.Parse(parsedArgs["boot"]);
-                }
-            }
-            catch (System.Exception)
-            { }
-
+            var parameters = new NDesk.Options.OptionSet()
+                .Add("b", "Execute kodi on boot", b => boot = true);
+            
+            parameters.Parse (Environment.GetCommandLineArgs());
 
             Timer kodiTimer = new Timer(boot);
 

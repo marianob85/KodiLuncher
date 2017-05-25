@@ -102,6 +102,7 @@
     <Compile Include="Forms\Settings\Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
+    <Compile Include="SourcesEx\Options.cs" />
     <Compile Include="SourcesEx\RegistryMonitor.cs" />
     <Compile Include="Sources\ContextMenu.cs" />
     <Compile Include="Forms\About\About.cs">
