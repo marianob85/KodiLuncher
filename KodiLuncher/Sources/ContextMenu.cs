@@ -48,18 +48,18 @@ namespace KodiLuncher
             item.Image = KodiLuncher.Properties.Resources.Settings.ToBitmap();
             menu.Items.Add(item);
 
-            // About.
+            // About
             item = new ToolStripMenuItem();
             item.Text = "About";
             item.Image = KodiLuncher.Properties.Resources.StatusHelp.ToBitmap();
             item.Click += new EventHandler(About_Click);
             menu.Items.Add(item);
 
-            // Separator.
+            // Separator
             sep = new ToolStripSeparator();
             menu.Items.Add(sep);
 
-            // Exit.
+            // Exit
             item = new ToolStripMenuItem();
             item.Text = "Exit";
             item.Click += new System.EventHandler(Exit_Click);
