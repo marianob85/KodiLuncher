@@ -45,7 +45,14 @@ namespace ProgramSettings
         {
             get
             {
-                return !m_options.Equals(Options.read());
+                try
+                {
+                    return !m_options.Equals(Options.read());
+                }
+                catch (System.ArgumentNullException)
+                {
+                    return !m_options.Equals(new Options());
+                }
             }
         }
 

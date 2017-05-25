@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Win32;
 
 namespace KodiLuncher.Sources
 {
@@ -10,8 +11,28 @@ namespace KodiLuncher.Sources
     {
         public bool Enable
         {
-            get { return false; }
-            set { }
+            get {
+                RegistryKey reg_key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", false);
+                return reg_key.GetValue("KodiLuncher", null) != null;
+            }
+            set
+            {
+                if (value)
+                {
+                    var options = new ProgramSettings.SettingsContainer();
+
+                    if (!System.IO.File.Exists(options.options.applicationSettings.Application))
+                        return;
+
+                    RegistryKey reg_key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
+                    reg_key.SetValue("KodiLuncher", options.options.applicationSettings.Application + " -b");
+                }
+                else
+                {
+                    RegistryKey reg_key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
+                    reg_key.DeleteValue("KodiLuncher");
+                }
+            }
         }
     }
 }

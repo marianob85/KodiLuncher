@@ -40,6 +40,7 @@ namespace KodiLuncher
 
         public void SetFocus()
         {
+
             if (KodiLuncher.ContextMenu.contextDraw)
                 return;
 
