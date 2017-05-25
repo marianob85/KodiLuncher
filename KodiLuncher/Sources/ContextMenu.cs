@@ -9,7 +9,11 @@ namespace KodiLuncher
 {
     class ContextMenu
     {
+        // TODO ! Refactor 
         public static bool contextDraw = false;
+        public static bool aboutDraw = false;
+        public static bool settingsDraw = false;
+
         public ContextMenuStrip Create()
         {
             // Add the default menu options.
@@ -88,9 +92,11 @@ namespace KodiLuncher
 
         void Settings_Click(object sender, EventArgs e)
         {
+            settingsDraw = true;
             KodiLuncher.Forms.Settings.Settings settings = new KodiLuncher.Forms.Settings.Settings();
             settings.StartPosition = FormStartPosition.WindowsDefaultLocation;
             settings.ShowDialog();
+            settingsDraw = false;
         }
 
         void Exit_Click(object sender, EventArgs e)
@@ -101,9 +107,11 @@ namespace KodiLuncher
 
         void About_Click(object sender, EventArgs e)
         {
+            aboutDraw = true;
             Manobit.About about = new Manobit.About(AppDomain.CurrentDomain.GetAssemblies());
             about.StartPosition = FormStartPosition.WindowsDefaultLocation;
             about.ShowDialog();
+            aboutDraw = false;
         }
 
         void RunKodi(object sender, EventArgs e)

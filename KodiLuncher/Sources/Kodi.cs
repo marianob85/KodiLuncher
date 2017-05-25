@@ -41,7 +41,7 @@ namespace KodiLuncher
         public void SetFocus()
         {
 
-            if (KodiLuncher.ContextMenu.contextDraw)
+            if (KodiLuncher.ContextMenu.contextDraw || KodiLuncher.ContextMenu.aboutDraw || KodiLuncher.ContextMenu.settingsDraw) 
                 return;
 
             var kodiProcess = System.Diagnostics.Process.GetProcesses().
