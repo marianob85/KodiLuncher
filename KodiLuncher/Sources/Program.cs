@@ -18,6 +18,9 @@ namespace KodiLuncher
         [STAThread]
         static void Main()
         {
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+            currentDomain.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -50,9 +53,13 @@ namespace KodiLuncher
             }
         }
 
+        static private void MyHandler(object sender, UnhandledExceptionEventArgs args)
+        {
+            System.Diagnostics.MiniDump.CreateDump(@"d:\");
+        }
+
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool AllocConsole();
-
     }
 }
