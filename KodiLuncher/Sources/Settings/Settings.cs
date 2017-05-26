@@ -26,7 +26,7 @@ namespace ProgramSettings
 
         ~SettingsContainer()
         {
-            monitor.Stop();
+            monitor.Dispose();
         }
 
         private void onRegChanged(Object sender, EventArgs e)
