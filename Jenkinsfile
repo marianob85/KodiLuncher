@@ -25,8 +25,8 @@ pipeline
 		
 		stage('Archive'){
 			steps {
-				bat 'copy KodiLuncher\\bin\\Release\\KodiLuncher.exe .\\KodiLuncher.exe /Y'
-				archiveArtifacts artifacts: 'KodiLuncher.exe', caseSensitive: false, defaultExcludes: false, onlyIfSuccessful: true
+				archiveArtifacts artifacts: '**/KodiLuncher.exe', fingerprint: true, onlyIfSuccessful: true
+				archiveArtifacts artifacts: '**/KodiLuncher.pdb', fingerprint: true, onlyIfSuccessful: true
 			}
 		}
 		
