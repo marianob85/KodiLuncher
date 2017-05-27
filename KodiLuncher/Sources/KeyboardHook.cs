@@ -66,13 +66,13 @@ namespace KodiLuncher
 
                     if (GetAsyncKeyState(Keys.LWin) != 0 && vCode == 13)
                     {
-                        new Kodi().Run();
+                        using (var kodi = new Kodi()) { kodi.Run(); };
                         Console.WriteLine("Triggered");
                     }
                 }
                 else if ( GetAsyncKeyState( Keys.LControlKey) != 0 && vCode == 115)
                 {
-                    new Kodi().Terminate();
+                    using (var kodi = new Kodi()) { kodi.Terminate(); };
                 }
             }
             return CallNextHookEx(m_hookID, nCode, wParam, lParam);

@@ -116,12 +116,12 @@ namespace KodiLuncher
 
         void RunKodi(object sender, EventArgs e)
         {
-            new Kodi().Run();
+            using (var kodi = new Kodi()) { kodi.Run(); };
         }
 
         void TerminateKodi(object sender, EventArgs e)
         {
-            new Kodi().Terminate();
+            using (var kodi = new Kodi()) { kodi.Terminate(); };
         }
     }
 }

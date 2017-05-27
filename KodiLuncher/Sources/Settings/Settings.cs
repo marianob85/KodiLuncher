@@ -9,7 +9,7 @@ using System.ComponentModel;
 
 namespace ProgramSettings
 {
-    public class SettingsContainer
+    public class SettingsContainer : IDisposable
     {
         public event EventHandler OptionsChanged = delegate { };
 
@@ -24,10 +24,13 @@ namespace ProgramSettings
             monitor.Start();
         }
 
-        ~SettingsContainer()
+        public void Dispose()
         {
             monitor.Dispose();
         }
+
+        ~SettingsContainer()
+        {}
 
         private void onRegChanged(Object sender, EventArgs e)
         {

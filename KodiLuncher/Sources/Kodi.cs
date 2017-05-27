@@ -7,12 +7,22 @@ using System.Runtime.InteropServices;
 
 namespace KodiLuncher
 {
-    public class Kodi
+    public class Kodi : IDisposable
     {
         private ProgramSettings.SettingsContainer m_options = new ProgramSettings.SettingsContainer();
 
         public Kodi()
         {
+        }
+
+        ~Kodi()
+        {
+
+        }
+
+        public void Dispose()
+        {
+            m_options.Dispose();
         }
 
         public void Run()
