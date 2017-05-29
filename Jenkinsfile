@@ -25,8 +25,8 @@ pipeline
 		
 		stage('Archive'){
 			steps {
-				archiveArtifacts artifacts: 'out/**/KodiLuncher.exe', fingerprint: true, onlyIfSuccessful: true
-				archiveArtifacts artifacts: 'out/**/KodiLuncher.pdb', fingerprint: true, onlyIfSuccessful: true
+				archiveArtifacts artifacts: '**/out/**/KodiLuncher.exe', fingerprint: true, onlyIfSuccessful: true
+				archiveArtifacts artifacts: '**/out/**/KodiLuncher.pdb', fingerprint: true, onlyIfSuccessful: true
 			}
 		}
 		
