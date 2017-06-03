@@ -65,6 +65,7 @@ namespace KodiLuncher
                     if (handle != process.MainWindowHandle)
                     {
                         Console.WriteLine("Focused");
+                        ShowWindow(process.MainWindowHandle, SW_RESTORE);
                         SetForegroundWindow(process.MainWindowHandle);
                     }
                 }
@@ -84,10 +85,15 @@ namespace KodiLuncher
             }
         }
 
+        private const uint SW_RESTORE = 0x09;
+
         [DllImport("user32.dll")]
         static extern IntPtr SetForegroundWindow(IntPtr hWnd);
 
         [DllImport("user32.dll")]
         static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll")]
+        private static extern int ShowWindow(IntPtr hWnd, uint Msg);
     }
 }

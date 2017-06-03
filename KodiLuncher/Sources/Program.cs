@@ -43,9 +43,9 @@ namespace KodiLuncher
                 Console.WriteLine("App started");
 
 #if DEBUG
-                KodiLuncher.Forms.Settings.Settings settings = new KodiLuncher.Forms.Settings.Settings();
-                settings.StartPosition = FormStartPosition.WindowsDefaultLocation;
-                settings.ShowDialog();
+                //KodiLuncher.Forms.Settings.Settings settings = new KodiLuncher.Forms.Settings.Settings();
+                //settings.StartPosition = FormStartPosition.WindowsDefaultLocation;
+                //settings.ShowDialog();
 #endif
 
                 // Make sure the application runs!
