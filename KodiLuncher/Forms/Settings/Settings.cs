@@ -112,6 +112,7 @@ namespace KodiLuncher.Forms.Settings
         private void m_cancel_Click(object sender, EventArgs e)
         {
             m_options.read();
+            Close();
             //Cancel(this, m_options.options);
         }
 
