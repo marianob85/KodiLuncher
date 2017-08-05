@@ -41,15 +41,8 @@ namespace KodiLuncher.Forms.Settings
             nodeExternalApp.Text = "External Application";
             nodeExternalApp.Tag = new CreateSettingsPanel( ( object sender) => new KodiLuncher.Forms.Settings.Nodes.NodeExternalApp(m_options) );
 
-            System.Windows.Forms.TreeNode nodeCec = new System.Windows.Forms.TreeNode();
-            nodeCec.Name = "HDMICec";
-            nodeCec.Text = "HDMI-cec";
-            nodeCec.Tag = new CreateSettingsPanel((object sender) => new KodiLuncher.Forms.Settings.Nodes.NodeCec(m_options));
-
-
             m_treeView.Nodes.Add(nodeGeneral);
             m_treeView.Nodes.Add(nodeExternalApp);
-            m_treeView.Nodes.Add(nodeCec);
         }
 
         private void EventNodeAfterSelect(System.Object sender, System.Windows.Forms.TreeViewEventArgs e)

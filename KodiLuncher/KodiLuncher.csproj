@@ -209,7 +209,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Remote (
-  xcopy /Y $(TargetPath) \\192.168.1.88\Kluncher
+  xcopy /Y $(TargetPath) \\192.168.1.70\Kluncher
 )</PostBuildEvent>
   </PropertyGroup>
   <!-- Import of the MSBuildCommunityTask targets -->

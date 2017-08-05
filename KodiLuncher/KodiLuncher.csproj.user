@@ -19,7 +19,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Remote|AnyCPU'">
     <StartProgram>c:\KLuncher\KodiLuncher.exe</StartProgram>
-    <RemoteDebugMachine>192.168.1.88</RemoteDebugMachine>
+    <RemoteDebugMachine>192.168.1.70</RemoteDebugMachine>
     <StartAction>Program</StartAction>
     <RemoteDebugEnabled>true</RemoteDebugEnabled>
   </PropertyGroup>
