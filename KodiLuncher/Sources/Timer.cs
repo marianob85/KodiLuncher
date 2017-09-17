@@ -46,7 +46,7 @@ namespace KodiLuncher
             System.Timers.Timer timer = source as System.Timers.Timer;
             timer.Close();
 
-            using (var kodi = new Kodi()) { kodi.Run(); };
+            Kodi.Instance.Run();
         }
 
         private void onFocusTimer(Object source, System.Timers.ElapsedEventArgs e)
@@ -59,7 +59,7 @@ namespace KodiLuncher
                         return;
                 }
             }
-            using (var kodi = new Kodi()) { kodi.SetFocus(); };
+            Kodi.Instance.SetFocus();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
