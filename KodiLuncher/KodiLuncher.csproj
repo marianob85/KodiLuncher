@@ -79,12 +79,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\Settings\Nodes\NodeCec.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Settings\Nodes\NodeCec.Designer.cs">
-      <DependentUpon>NodeCec.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Settings\Nodes\NodeExternalApp.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -96,6 +90,12 @@
     </Compile>
     <Compile Include="Forms\Settings\Nodes\NodeGeneral.Designer.cs">
       <DependentUpon>NodeGeneral.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Settings\Nodes\NodeWatchDog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Nodes\NodeWatchDog.Designer.cs">
+      <DependentUpon>NodeWatchDog.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Settings\Settings.cs">
       <SubType>Form</SubType>
@@ -135,14 +135,14 @@
     <EmbeddedResource Include="Forms\About\AboutControl.resx">
       <DependentUpon>AboutControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Settings\Nodes\NodeCec.resx">
-      <DependentUpon>NodeCec.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Settings\Nodes\NodeExternalApp.resx">
       <DependentUpon>NodeExternalApp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Settings\Nodes\NodeGeneral.resx">
       <DependentUpon>NodeGeneral.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Settings\Nodes\NodeWatchDog.resx">
+      <DependentUpon>NodeWatchDog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Settings\Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>

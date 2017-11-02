@@ -41,8 +41,14 @@ namespace KodiLuncher.Forms.Settings
             nodeExternalApp.Text = "External Application";
             nodeExternalApp.Tag = new CreateSettingsPanel( ( object sender) => new KodiLuncher.Forms.Settings.Nodes.NodeExternalApp(m_options) );
 
+            System.Windows.Forms.TreeNode watchDog = new System.Windows.Forms.TreeNode();
+            watchDog.Name = "WatchDog";
+            watchDog.Text = "WatchDog";
+            watchDog.Tag = new CreateSettingsPanel((object sender) => new KodiLuncher.Forms.Settings.Nodes.NodeWatchDog(m_options));
+
             m_treeView.Nodes.Add(nodeGeneral);
             m_treeView.Nodes.Add(nodeExternalApp);
+            m_treeView.Nodes.Add(watchDog);
         }
 
         private void EventNodeAfterSelect(System.Object sender, System.Windows.Forms.TreeViewEventArgs e)

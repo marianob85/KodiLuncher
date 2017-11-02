@@ -37,6 +37,35 @@ namespace ProgramSettings
         }
     }
 
+    public class WatchDog
+    {
+        public bool Enable = false;
+        public uint Port = 8080;
+
+        public override int GetHashCode()
+        {
+            return Enable.GetHashCode()
+                    * Port.GetHashCode() ^ 2;
+        }
+
+        public override bool Equals(Object other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            if (this.GetType() != other.GetType())
+                return false;
+
+            return Equals((WatchDog)other);
+        }
+
+        private bool Equals(WatchDog options)
+        {
+            return Enable.Equals(options.Enable)
+                    && Port.Equals(options.Port);
+        }
+    }
+
+
 
     public class ApplicationSettings
     {
@@ -46,6 +75,7 @@ namespace ProgramSettings
         public bool FocusIntervalEnable = false;
         public List<ExternalAppSettings> ExtApp = new List<ExternalAppSettings>();
         public String Application = String.Empty;
+        public WatchDog AppWatchDog = new WatchDog();
 
         public ApplicationSettings()
         {
@@ -59,7 +89,8 @@ namespace ProgramSettings
                     * FocusIntervalMS.GetHashCode() ^ 3
                     * FocusIntervalEnable.GetHashCode() ^ 4
                     * ExtApp.GetHashCode() ^ 5
-                    * Application.GetHashCode() ^6 ;
+                    * Application.GetHashCode() ^6 
+                    * AppWatchDog.GetHashCode() ^ 7;
         }
 
         public override bool Equals(Object other)
@@ -79,7 +110,8 @@ namespace ProgramSettings
                     && FocusIntervalMS.Equals(options.FocusIntervalMS)
                     && FocusIntervalEnable.Equals(options.FocusIntervalEnable)
                     && ExtApp.TrueForAll(options.ExtApp.Contains) && options.ExtApp.TrueForAll(ExtApp.Contains)
-                    && Application.Equals(options.Application);
+                    && Application.Equals(options.Application)
+                    && AppWatchDog.Equals(options.AppWatchDog);
         }
     }
 
