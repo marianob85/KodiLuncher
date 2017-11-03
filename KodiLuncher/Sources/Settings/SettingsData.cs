@@ -41,11 +41,13 @@ namespace ProgramSettings
     {
         public bool Enable = false;
         public uint Port = 8080;
+        public uint CheckInterval = 5000;
 
         public override int GetHashCode()
         {
             return Enable.GetHashCode()
-                    * Port.GetHashCode() ^ 2;
+                    * Port.GetHashCode() ^ 2
+                    * CheckInterval.GetHashCode() ^3;
         }
 
         public override bool Equals(Object other)
@@ -61,7 +63,8 @@ namespace ProgramSettings
         private bool Equals(WatchDog options)
         {
             return Enable.Equals(options.Enable)
-                    && Port.Equals(options.Port);
+                    && Port.Equals(options.Port)
+                    && CheckInterval.Equals(options.CheckInterval);
         }
     }
 

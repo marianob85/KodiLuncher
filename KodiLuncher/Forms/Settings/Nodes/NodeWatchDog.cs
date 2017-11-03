@@ -28,7 +28,9 @@ namespace KodiLuncher.Forms.Settings.Nodes
         {
             checkBoxEnable.Checked = m_options.options.applicationSettings.AppWatchDog.Enable;
             textBoxPort.Text = m_options.options.applicationSettings.AppWatchDog.Port.ToString();
-            textBoxPort.Enabled = m_options.options.applicationSettings.AppWatchDog.Enable;
+            textBoxInterval.Text = m_options.options.applicationSettings.AppWatchDog.CheckInterval.ToString();
+            panelSettings.Enabled = m_options.options.applicationSettings.AppWatchDog.Enable;
+            
         }
 
         private void textBoxPort_TextChanged(object sender, EventArgs e)
@@ -40,7 +42,21 @@ namespace KodiLuncher.Forms.Settings.Nodes
         private void checkBoxEnable_CheckedChanged(object sender, EventArgs e)
         {
             m_options.options.applicationSettings.AppWatchDog.Enable = (sender as CheckBox).Checked;
-            textBoxPort.Enabled = m_options.options.applicationSettings.AppWatchDog.Enable;
+            panelSettings.Enabled = m_options.options.applicationSettings.AppWatchDog.Enable;
+        }
+
+        private void textBoxInterval_TextChanged(object sender, EventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            m_options.options.applicationSettings.AppWatchDog.CheckInterval = uint.Parse(textBox.Text);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            WatchDog watchDog = new WatchDog(false);
+            buttonTest.BackColor = watchDog.Ping() ? Color.Green : Color.Red;
+
+
         }
     }
 }

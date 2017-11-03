@@ -129,6 +129,7 @@
     <Compile Include="Sources\Settings\SettingsData.cs" />
     <Compile Include="Sources\Timer.cs" />
     <Compile Include="Sources\TrayIcon.cs" />
+    <Compile Include="Sources\WatchDog.cs" />
     <EmbeddedResource Include="Forms\About\About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>

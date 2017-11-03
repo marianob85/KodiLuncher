@@ -43,6 +43,7 @@ namespace KodiLuncher
                 parameters.Parse(Environment.GetCommandLineArgs());
 
                 Timer kodiTimer = new Timer(boot);
+                WatchDog watchDog = new WatchDog();
 
                 // Show the system tray icon.					
                 //using (KeyboardHook kh = new KeyboardHook())

@@ -104,6 +104,14 @@ namespace KodiLuncher
             }
         }
 
+        public bool isKodiProcess()
+        {
+            var kodiProcess = System.Diagnostics.Process.GetProcesses().
+                     Where(pr => pr.ProcessName == "kodi");
+
+            return kodiProcess.Any();
+        }
+
         private const uint SW_RESTORE = 0x09;
 
         [DllImport("user32.dll")]
