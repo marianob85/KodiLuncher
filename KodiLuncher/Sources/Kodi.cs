@@ -93,10 +93,7 @@ namespace KodiLuncher
 
         public void Terminate()
         {
-            var kodiProcess = System.Diagnostics.Process.GetProcesses().
-                                 Where(pr => pr.ProcessName == "kodi");
-
-            foreach (var process in kodiProcess)
+            foreach (var process in kodiProcesses())
             {
                 if (!process.HasExited)
                     process.Kill();
@@ -106,10 +103,13 @@ namespace KodiLuncher
 
         public bool isKodiProcess()
         {
-            var kodiProcess = System.Diagnostics.Process.GetProcesses().
-                     Where(pr => pr.ProcessName == "kodi");
+            return kodiProcesses().Any();
+        }
 
-            return kodiProcess.Any();
+        private System.Collections.Generic.IEnumerable<System.Diagnostics.Process> kodiProcesses()
+        {
+            return System.Diagnostics.Process.GetProcesses().
+                     Where(pr => pr.ProcessName.CompareTo("kodi") == 0);
         }
 
         private const uint SW_RESTORE = 0x09;
