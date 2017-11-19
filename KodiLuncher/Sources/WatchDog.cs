@@ -37,11 +37,14 @@ namespace KodiLuncher
         private void onWatchDog(Object source, System.Timers.ElapsedEventArgs e)
         {
             var kodi = Kodi.Instance;
-            if (kodi.isKodiProcess() && !Ping())
+            if (!Ping())
             {
-                kodi.Terminate();
-                System.Threading.Thread.Sleep(100);
-                kodi.Run();
+                if (kodi.isKodiProcess())
+                {
+                    kodi.Terminate();
+                    System.Threading.Thread.Sleep(100);
+                    kodi.Run();
+                }
             }
 
         }
