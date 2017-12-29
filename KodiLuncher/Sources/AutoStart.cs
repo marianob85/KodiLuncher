@@ -21,9 +21,6 @@ namespace KodiLuncher.Sources
                 {
                     var options = new ProgramSettings.SettingsContainer();
 
-                    if (!System.IO.File.Exists(options.options.applicationSettings.Application))
-                        return;
-
                     RegistryKey reg_key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
                     reg_key.SetValue("KodiLuncher", System.Reflection.Assembly.GetExecutingAssembly().Location + " -b");
                 }

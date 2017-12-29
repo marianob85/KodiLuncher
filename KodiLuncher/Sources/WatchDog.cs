@@ -60,7 +60,6 @@ namespace KodiLuncher
                 HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create(url);
                 webRequest.Timeout = 1200;
                 webRequest.Method = "GET";
-                //webRequest.AllowAutoRedirect = true;
 
                 HttpWebResponse response = null;
 
