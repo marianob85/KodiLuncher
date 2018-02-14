@@ -39,12 +39,9 @@ namespace KodiLuncher
             var kodi = Kodi.Instance;
             if (!Ping())
             {
-                if (kodi.isKodiProcess())
-                {
-                    kodi.Terminate();
-                    System.Threading.Thread.Sleep(100);
-                    kodi.Run();
-                }
+                kodi.Terminate();
+                System.Threading.Thread.Sleep(100);
+                kodi.Run();
             }
 
         }
