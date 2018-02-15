@@ -93,11 +93,28 @@ namespace KodiLuncher
 
         public void Terminate()
         {
+            killWer();
             foreach (var process in kodiProcesses())
             {
-                if (!process.HasExited)
-                    process.Kill();
+                try
+                {
+                    if (!process.HasExited)
+                        process.Kill();
+                }
+                catch ( System.ComponentModel.Win32Exception )
+                {
+                    killWer();
+                }
+                
                 Console.WriteLine("Killed");
+            }
+        }
+
+        private void killWer()
+        {
+            foreach (var werProc in werProcess())
+            {
+                werProc.Kill();
             }
         }
 
@@ -111,6 +128,13 @@ namespace KodiLuncher
             return System.Diagnostics.Process.GetProcesses().
                      Where(pr => pr.ProcessName.CompareTo("kodi") == 0);
         }
+
+        private System.Collections.Generic.IEnumerable<System.Diagnostics.Process> werProcess()
+        {
+            return System.Diagnostics.Process.GetProcesses().
+                     Where(pr => pr.ProcessName.CompareTo("WerFault") == 0);
+        }
+
 
         private const uint SW_RESTORE = 0x09;
 
