@@ -214,19 +214,4 @@
   xcopy /Y $(TargetPath) \\192.168.1.70\Kluncher
 )</PostBuildEvent>
   </PropertyGroup>
-  <!-- Import of the MSBuildCommunityTask targets -->
-  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
-  <Target Name="UpdateVersionAssemblyInfo" BeforeTargets="BeforeBuild">
-    <PropertyGroup>
-      <Major>1</Major>
-      <Minor>0</Minor>
-      <Build>0</Build>
-      <Revision>0</Revision>
-      <GitHash>unknown</GitHash>
-    </PropertyGroup>
-    <GitVersion LocalPath="$(SolutionDir)" Short="false">
-      <Output TaskParameter="CommitHash" PropertyName="GitHash" />
-    </GitVersion>
-    <AssemblyInfo CodeLanguage="CS" OutputFile="$(SolutionDir)\KodiLuncher\Properties\VersionAssemblyInfo.cs" AssemblyInformationalVersion="$(Major).$(Minor).$(Build).$(Revision) (git $(GitHash))" AssemblyVersion="$(Major).$(Minor).$(Build).$(Revision)" AssemblyFileVersion="$(Major).$(Minor).$(Build).$(Revision)" />
-  </Target>
 </Project>

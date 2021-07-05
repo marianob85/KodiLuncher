@@ -7,58 +7,44 @@ properties(
 
 pipeline
 {
-	agent { node { label 'windows10x64 && development' } }
+	agent any
+	options {
+		skipDefaultCheckout true
+	}
 	stages
 	{
 		stage('Build'){
+			agent{ label "windows/buildtools2019" }
 			steps {
+				checkout scm
 				bat '''
-					call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\Tools\\VsMSBuildCmd.bat"
-					msbuild KodiLuncher.sln /t:Rebuild /p:Configuration=Release;Platform="Any CPU" /flp:logfile=warnings.log;warningsonly'''
+					call "C:/BuildTools/VC/Auxiliary/Build/vcvars64.bat"
+					msbuild KodiLuncher.sln /t:Rebuild /p:Configuration=Release;Platform="Any CPU" /flp:logfile=warnings.log;warningsonly
+				'''
+				stash includes: "warnings.log", name: "warningsFiles"
+				stash includes: '**/out/**/KodiLuncher.exe, **/out/**/KodiLuncher.pdb', name: "bin"
 			}
 		}
 		stage('Compile check'){
 			steps {
-				warnings canComputeNew: false, canResolveRelativePaths: false, defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', messagesPattern: '', parserConfigurations: [[parserName: 'MSBuild', pattern: 'warnings.log']], unHealthy: ''
+				script {
+					def warn = scanForIssues sourceCodeEncoding: 'UTF-8', tool: msBuild(id: 'msvc', pattern: 'warnings.log')
+					publishIssues failedTotalAll: 1, issues: [warn], name: 'Win compilation warnings'	
+				}
 			}
 		}
 		
 		stage('Archive'){
 			steps {
+				unstash "bin"
 				archiveArtifacts artifacts: '**/out/**/KodiLuncher.exe', fingerprint: true, onlyIfSuccessful: true
 				archiveArtifacts artifacts: '**/out/**/KodiLuncher.pdb', fingerprint: true, onlyIfSuccessful: true
 			}
 		}
-		
-		stage('CleanUp'){
-			steps {
-				deleteDir()
-			}
-		}
 	}
 	post { 
-        failure { 
-            notifyFailed()
-        }
-		success { 
-            notifySuccessful()
-        }
-		unstable { 
-            notifyFailed()
+        changed { 
+            emailext body: 'Please go to ${env.BUILD_URL}', to: '${DEFAULT_RECIPIENTS}', subject: "Job ${env.JOB_NAME} (${env.BUILD_NUMBER}) ${currentBuild.currentResult}".replaceAll("%2F", "/")
         }
     }
-}
-
-def notifySuccessful() {
-	echo 'Sending e-mail'
-	mail (to: 'notifier@manobit.com',
-         subject: "Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) success build",
-         body: "Please go to ${env.BUILD_URL}.");
-}
-
-def notifyFailed() {
-	echo 'Sending e-mail'
-	mail (to: 'notifier@manobit.com',
-         subject: "Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) failure",
-         body: "Please go to ${env.BUILD_URL}.");
 }
