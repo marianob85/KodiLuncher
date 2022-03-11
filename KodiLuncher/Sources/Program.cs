@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
-using System.Diagnostics;
 using System.Threading;
 using KodiLuncher.TrayIcon;
+using KodiLuncher.Sources;
 
 namespace KodiLuncher
 {
@@ -41,6 +38,7 @@ namespace KodiLuncher
 
                 Timer kodiTimer = new Timer(boot);
                 WatchDog watchDog = new WatchDog();
+                MqttClient mqtt = new MqttClient();
 
                 // Show the system tray icon.					
                 //using (KeyboardHook kh = new KeyboardHook())

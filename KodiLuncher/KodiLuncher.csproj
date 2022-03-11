@@ -115,6 +115,7 @@
     <Compile Include="SourcesEx\Options.cs" />
     <Compile Include="SourcesEx\RegistryMonitor.cs" />
     <Compile Include="Sources\AutoStart.cs" />
+    <Compile Include="Sources\MqttClient.cs" />
     <Compile Include="Sources\ContextMenu.cs" />
     <Compile Include="Forms\About\About.cs">
       <SubType>Form</SubType>
