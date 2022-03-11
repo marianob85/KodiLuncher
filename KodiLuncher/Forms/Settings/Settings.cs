@@ -46,9 +46,15 @@ namespace KodiLuncher.Forms.Settings
             watchDog.Text = "WatchDog";
             watchDog.Tag = new CreateSettingsPanel((object sender) => new KodiLuncher.Forms.Settings.Nodes.NodeWatchDog(m_options));
 
+            System.Windows.Forms.TreeNode mqtt = new System.Windows.Forms.TreeNode();
+            mqtt.Name = "Mqtt";
+            mqtt.Text = "Mqtt";
+            mqtt.Tag = new CreateSettingsPanel((object sender) => new KodiLuncher.Forms.Settings.Nodes.NodeMqtt(m_options));
+
             m_treeView.Nodes.Add(nodeGeneral);
             m_treeView.Nodes.Add(nodeExternalApp);
             m_treeView.Nodes.Add(watchDog);
+            m_treeView.Nodes.Add(mqtt);
         }
 
         private void EventNodeAfterSelect(System.Object sender, System.Windows.Forms.TreeViewEventArgs e)

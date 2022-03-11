@@ -30,7 +30,6 @@ namespace KodiLuncher.Forms.Settings.Nodes
             textBoxPort.Text = m_options.options.applicationSettings.AppWatchDog.Port.ToString();
             textBoxInterval.Text = m_options.options.applicationSettings.AppWatchDog.CheckInterval.ToString();
             panelSettings.Enabled = m_options.options.applicationSettings.AppWatchDog.Enable;
-            
         }
 
         private void textBoxPort_TextChanged(object sender, EventArgs e)

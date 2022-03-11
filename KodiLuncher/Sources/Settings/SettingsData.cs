@@ -47,7 +47,7 @@ namespace ProgramSettings
         {
             return Enable.GetHashCode()
                     * Port.GetHashCode() ^ 2
-                    * CheckInterval.GetHashCode() ^3;
+                    * CheckInterval.GetHashCode() ^ 3;
         }
 
         public override bool Equals(Object other)
@@ -68,7 +68,35 @@ namespace ProgramSettings
         }
     }
 
+    public class MQTT
+    {
+        public bool Enable = false;
+        public uint Port = 8080;
+        public String Host = String.Empty;
+        public override int GetHashCode()
+        {
+            return Enable.GetHashCode()
+                    * Port.GetHashCode() ^ 2
+                     * Host.GetHashCode() ^ 3;
+        }
 
+        public override bool Equals(Object other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            if (this.GetType() != other.GetType())
+                return false;
+
+            return Equals((MQTT)other);
+        }
+
+        private bool Equals(MQTT options)
+        {
+            return Enable.Equals(options.Enable)
+                 && Port.Equals(options.Port)
+                 && Host.Equals(options.Host);
+        }
+    }
 
     public class ApplicationSettings
     {
@@ -79,6 +107,7 @@ namespace ProgramSettings
         public List<ExternalAppSettings> ExtApp = new List<ExternalAppSettings>();
         public String Application = String.Empty;
         public WatchDog AppWatchDog = new WatchDog();
+        public MQTT Mqtt = new MQTT();
 
         public ApplicationSettings()
         {
@@ -92,8 +121,9 @@ namespace ProgramSettings
                     * FocusIntervalMS.GetHashCode() ^ 3
                     * FocusIntervalEnable.GetHashCode() ^ 4
                     * ExtApp.GetHashCode() ^ 5
-                    * Application.GetHashCode() ^6 
-                    * AppWatchDog.GetHashCode() ^ 7;
+                    * Application.GetHashCode() ^ 6
+                    * AppWatchDog.GetHashCode() ^ 7
+                    * Mqtt.GetHashCode() ^ 8;
         }
 
         public override bool Equals(Object other)
@@ -114,7 +144,8 @@ namespace ProgramSettings
                     && FocusIntervalEnable.Equals(options.FocusIntervalEnable)
                     && ExtApp.TrueForAll(options.ExtApp.Contains) && options.ExtApp.TrueForAll(ExtApp.Contains)
                     && Application.Equals(options.Application)
-                    && AppWatchDog.Equals(options.AppWatchDog);
+                    && AppWatchDog.Equals(options.AppWatchDog)
+                    && Mqtt.Equals(options.Mqtt);
         }
     }
 

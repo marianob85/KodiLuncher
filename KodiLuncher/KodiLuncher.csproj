@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>KodiLuncher</RootNamespace>
     <AssemblyName>KodiLuncher</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -26,6 +26,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -98,6 +99,12 @@
     <Compile Include="Forms\Settings\Nodes\NodeWatchDog.Designer.cs">
       <DependentUpon>NodeWatchDog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Settings\Nodes\NodeMqtt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Nodes\NodeMqtt.Designer.cs">
+      <DependentUpon>NodeMqtt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Settings\Settings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +152,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Settings\Nodes\NodeWatchDog.resx">
       <DependentUpon>NodeWatchDog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Settings\Nodes\NodeMqtt.resx">
+      <DependentUpon>NodeMqtt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Settings\Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
