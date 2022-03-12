@@ -5,10 +5,7 @@ using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Client.Options;
 using MQTTnet.Client.Disconnecting;
-using System.Security.Cryptography.X509Certificates;
-using System.Collections.Generic;
-
-// https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/task-cancellation
+using KodiLuncher;
 
 namespace KodiLuncher.Sources
 {
@@ -18,8 +15,8 @@ namespace KodiLuncher.Sources
         private Task m_server = null;
         private IMqttClient m_mqttClient = null;
         private CancellationTokenSource m_tokenSource2 = null;
-
-
+        private Kodi m_kodiLuncher = Kodi.Instance;
+        private bool m_lastStatus = false;
         public MqttClient()
         {
             m_options.OptionsChanged += new EventHandler( ( Object sender, EventArgs e ) => OptionsChanged() );
@@ -60,6 +57,20 @@ namespace KodiLuncher.Sources
             }
         }
 
+        private void publishStatus( bool force = false )
+        {
+            if( force && m_lastStatus != m_kodiLuncher.isKodiProcess() )
+            {
+                m_lastStatus = m_kodiLuncher.isKodiProcess();
+                var applicationMessage = new MqttApplicationMessageBuilder()
+                                                    .WithTopic("HTPC/kodi/running")
+                                                    .WithPayload( m_lastStatus  ? "true" : "false")
+                                                    .Build();
+
+                m_mqttClient.PublishAsync( applicationMessage, CancellationToken.None );
+            }
+        }
+
         public void ConnectClient()
         {
             m_tokenSource2 = new CancellationTokenSource();
@@ -89,7 +100,11 @@ namespace KodiLuncher.Sources
                                 {
                                     await m_mqttClient.ConnectAsync( mqttClientOptions, CancellationToken.None );
 
-                                    // Subscribe to topics when session is clean etc.
+                                    publishStatus( true );
+                                }
+                                else
+                                {
+                                    publishStatus();
                                 }
                             }
                             catch
