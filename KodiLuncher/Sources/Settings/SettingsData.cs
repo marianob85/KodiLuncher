@@ -20,20 +20,20 @@ namespace ProgramSettings
                     * PreventFocus.GetHashCode() ^ 2;
         }
 
-        public override bool Equals(Object other)
+        public override bool Equals( Object other )
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            if (this.GetType() != other.GetType())
+            if( ReferenceEquals( null, other ) ) return false;
+            if( ReferenceEquals( this, other ) ) return true;
+            if( this.GetType() != other.GetType() )
                 return false;
 
-            return Equals((ExternalAppSettings)other);
+            return Equals( ( ExternalAppSettings )other );
         }
 
-        private bool Equals(ExternalAppSettings options)
+        private bool Equals( ExternalAppSettings options )
         {
-            return AppPath.Equals(options.AppPath)
-                    && PreventFocus.Equals(options.PreventFocus);
+            return AppPath.Equals( options.AppPath )
+                    && PreventFocus.Equals( options.PreventFocus );
         }
     }
 
@@ -50,51 +50,59 @@ namespace ProgramSettings
                     * CheckInterval.GetHashCode() ^ 3;
         }
 
-        public override bool Equals(Object other)
+        public override bool Equals( Object other )
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            if (this.GetType() != other.GetType())
+            if( ReferenceEquals( null, other ) ) return false;
+            if( ReferenceEquals( this, other ) ) return true;
+            if( this.GetType() != other.GetType() )
                 return false;
 
-            return Equals((WatchDog)other);
+            return Equals( ( WatchDog )other );
         }
 
-        private bool Equals(WatchDog options)
+        private bool Equals( WatchDog options )
         {
-            return Enable.Equals(options.Enable)
-                    && Port.Equals(options.Port)
-                    && CheckInterval.Equals(options.CheckInterval);
+            return Enable.Equals( options.Enable )
+                    && Port.Equals( options.Port )
+                    && CheckInterval.Equals( options.CheckInterval );
         }
     }
 
     public class MQTT
     {
         public bool Enable = false;
-        public uint Port = 8080;
+        public int Port = 8080;
         public String Host = String.Empty;
+        public String UserName = String.Empty;
+        public String Password = String.Empty;
+
         public override int GetHashCode()
         {
             return Enable.GetHashCode()
                     * Port.GetHashCode() ^ 2
-                     * Host.GetHashCode() ^ 3;
+                     * Host.GetHashCode() ^ 3
+                     * UserName.GetHashCode() ^ 4
+                     * Password.GetHashCode() ^ 5;
+
         }
 
-        public override bool Equals(Object other)
+        public override bool Equals( Object other )
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            if (this.GetType() != other.GetType())
+            if( ReferenceEquals( null, other ) ) return false;
+            if( ReferenceEquals( this, other ) ) return true;
+            if( this.GetType() != other.GetType() )
                 return false;
 
-            return Equals((MQTT)other);
+            return Equals( ( MQTT )other );
         }
 
-        private bool Equals(MQTT options)
+        private bool Equals( MQTT options )
         {
-            return Enable.Equals(options.Enable)
-                 && Port.Equals(options.Port)
-                 && Host.Equals(options.Host);
+            return Enable.Equals( options.Enable )
+                 && Port.Equals( options.Port )
+                 && Host.Equals( options.Host )
+                 && UserName.Equals( options.UserName )
+                 && Password.Equals( options.Password );
         }
     }
 
@@ -126,30 +134,30 @@ namespace ProgramSettings
                     * Mqtt.GetHashCode() ^ 8;
         }
 
-        public override bool Equals(Object other)
+        public override bool Equals( Object other )
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            if (this.GetType() != other.GetType())
+            if( ReferenceEquals( null, other ) ) return false;
+            if( ReferenceEquals( this, other ) ) return true;
+            if( this.GetType() != other.GetType() )
                 return false;
 
-            return Equals((ApplicationSettings)other);
+            return Equals( ( ApplicationSettings )other );
         }
 
-        private bool Equals(ApplicationSettings options)
+        private bool Equals( ApplicationSettings options )
         {
-            return StartDelayMS.Equals(options.StartDelayMS)
-                    && StartDelayEnable.Equals(options.StartDelayEnable)
-                    && FocusIntervalMS.Equals(options.FocusIntervalMS)
-                    && FocusIntervalEnable.Equals(options.FocusIntervalEnable)
-                    && ExtApp.TrueForAll(options.ExtApp.Contains) && options.ExtApp.TrueForAll(ExtApp.Contains)
-                    && Application.Equals(options.Application)
-                    && AppWatchDog.Equals(options.AppWatchDog)
-                    && Mqtt.Equals(options.Mqtt);
+            return StartDelayMS.Equals( options.StartDelayMS )
+                    && StartDelayEnable.Equals( options.StartDelayEnable )
+                    && FocusIntervalMS.Equals( options.FocusIntervalMS )
+                    && FocusIntervalEnable.Equals( options.FocusIntervalEnable )
+                    && ExtApp.TrueForAll( options.ExtApp.Contains ) && options.ExtApp.TrueForAll( ExtApp.Contains )
+                    && Application.Equals( options.Application )
+                    && AppWatchDog.Equals( options.AppWatchDog )
+                    && Mqtt.Equals( options.Mqtt );
         }
     }
 
-    [XmlRootAttribute("KodiLuncher", Namespace = "http://www.manobit.com")]
+    [XmlRootAttribute( "KodiLuncher", Namespace = "http://www.manobit.com" )]
     public class Options
     {
         private ApplicationSettings m_applications = new ApplicationSettings();
@@ -173,7 +181,7 @@ namespace ProgramSettings
             RegistryKey reg_key = Registry.CurrentUser.OpenSubKey("Software", true);
             RegistryKey sub_keyManobit = reg_key.CreateSubKey("Manobit");
             RegistryKey sub_key = sub_keyManobit.CreateSubKey("KodiLuncher");
-            sub_key.SetValue("Options", stream.ToArray());
+            sub_key.SetValue( "Options", stream.ToArray() );
         }
 
         static internal Options read()
@@ -183,21 +191,21 @@ namespace ProgramSettings
             RegistryKey sub_key = sub_keyManobit.CreateSubKey("KodiLuncher");
 
             byte[] settings = (byte[])sub_key.GetValue("Options");
-            return deserialize(new MemoryStream(settings));
+            return deserialize( new MemoryStream( settings ) );
         }
 
         private MemoryStream serialize()
         {
             XmlSerializer serializer = new XmlSerializer(this.GetType());
             MemoryStream stream = new MemoryStream();
-            serializer.Serialize(stream, this);
+            serializer.Serialize( stream, this );
             return stream;
         }
 
-        static private Options deserialize(MemoryStream stream)
+        static private Options deserialize( MemoryStream stream )
         {
             XmlSerializer deserializer = new XmlSerializer(typeof(Options));
-            return (Options)deserializer.Deserialize(stream);
+            return ( Options )deserializer.Deserialize( stream );
         }
 
         internal MemoryStream export()
@@ -205,9 +213,9 @@ namespace ProgramSettings
             return serialize();
         }
 
-        static internal Options import(MemoryStream stream)
+        static internal Options import( MemoryStream stream )
         {
-            return deserialize(stream);
+            return deserialize( stream );
         }
 
         public override int GetHashCode()
@@ -215,19 +223,19 @@ namespace ProgramSettings
             return m_applications.GetHashCode() ^ 2;
         }
 
-        public override bool Equals(Object other)
+        public override bool Equals( Object other )
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            if (this.GetType() != other.GetType())
+            if( ReferenceEquals( null, other ) ) return false;
+            if( ReferenceEquals( this, other ) ) return true;
+            if( this.GetType() != other.GetType() )
                 return false;
 
-            return Equals((Options)other);
+            return Equals( ( Options )other );
         }
 
-        private bool Equals(Options options)
+        private bool Equals( Options options )
         {
-            return m_applications.Equals(options.m_applications);
+            return m_applications.Equals( options.m_applications );
         }
     }
 }

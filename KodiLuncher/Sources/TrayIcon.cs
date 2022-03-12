@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using KodiLuncher.Properties;
+using KodiLuncher.Sources;
 
 namespace KodiLuncher
 {
@@ -9,9 +10,12 @@ namespace KodiLuncher
         class ProcessIcon : IDisposable
         {
             NotifyIcon m_notificationIcon;
+            private MqttClient m_mqttClient = null;
 
-            public ProcessIcon()
+            public ProcessIcon( MqttClient mqttClient )
             {
+                m_mqttClient = mqttClient;
+
                 // Instantiate the NotifyIcon object.
                 m_notificationIcon = new NotifyIcon();
             }
@@ -28,7 +32,7 @@ namespace KodiLuncher
                 m_notificationIcon.Text = "Kodi luncher";
                 m_notificationIcon.Visible = true;
 
-                m_notificationIcon.ContextMenuStrip = new ContextMenu().Create();
+                m_notificationIcon.ContextMenuStrip = new ContextMenu().Create( m_mqttClient );
             }
         }
     }

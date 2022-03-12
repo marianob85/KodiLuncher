@@ -14,15 +14,15 @@ namespace KodiLuncher
         [STAThread]
         static void Main()
         {
-            using (Mutex mutex = new Mutex(false, "Global\\" + appGuid))
+            using( Mutex mutex = new Mutex( false, "Global\\" + appGuid ) )
             {
                 AppDomain currentDomain = AppDomain.CurrentDomain;
-                currentDomain.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
+                currentDomain.UnhandledException += new UnhandledExceptionEventHandler( MyHandler );
 
                 Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
+                Application.SetCompatibleTextRenderingDefault( false );
 
-                if (!mutex.WaitOne(0, false))
+                if( !mutex.WaitOne( 0, false ) )
                 {
                     Kodi.Instance.Run();
                     return;
@@ -34,7 +34,7 @@ namespace KodiLuncher
                 var parameters = new NDesk.Options.OptionSet()
                     .Add("b", "Execute kodi on boot", b => boot = true);
 
-                parameters.Parse(Environment.GetCommandLineArgs());
+                parameters.Parse( Environment.GetCommandLineArgs() );
 
                 Timer kodiTimer = new Timer(boot);
                 WatchDog watchDog = new WatchDog();
@@ -42,25 +42,27 @@ namespace KodiLuncher
 
                 // Show the system tray icon.					
                 //using (KeyboardHook kh = new KeyboardHook())
-                using (ProcessIcon pi = new ProcessIcon())
+                using( ProcessIcon pi = new ProcessIcon( mqtt ) )
                 {
                     pi.Display();
 
-                    Console.WriteLine("App started");
+                    Console.WriteLine( "App started" );
 
                     // Make sure the application runs!
                     Application.Run();
                 }
+
+                mqtt.Dispose();
             }
         }
 
-        static private void MyHandler(object sender, UnhandledExceptionEventArgs args)
+        static private void MyHandler( object sender, UnhandledExceptionEventArgs args )
         {
-            System.Diagnostics.MiniDump.CreateDump(@"d:\");
+            System.Diagnostics.MiniDump.CreateDump( @"d:\" );
         }
 
-        [DllImport("kernel32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        [DllImport( "kernel32.dll", SetLastError = true )]
+        [return: MarshalAs( UnmanagedType.Bool )]
         static extern bool AllocConsole();
     }
 }

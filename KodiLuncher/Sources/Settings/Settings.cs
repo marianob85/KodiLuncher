@@ -20,7 +20,7 @@ namespace ProgramSettings
         {
             read();
 
-            monitor.RegChanged += new EventHandler(onRegChanged);
+            monitor.RegChanged += new EventHandler( onRegChanged );
             monitor.Start();
         }
 
@@ -30,12 +30,12 @@ namespace ProgramSettings
         }
 
         ~SettingsContainer()
-        {}
+        { }
 
-        private void onRegChanged(Object sender, EventArgs e)
+        private void onRegChanged( Object sender, EventArgs e )
         {
             read();
-            OptionsChanged(this, e);
+            OptionsChanged( this, e );
         }
 
         public Options options
@@ -50,11 +50,11 @@ namespace ProgramSettings
             {
                 try
                 {
-                    return !m_options.Equals(Options.read());
+                    return !m_options.Equals( Options.read() );
                 }
-                catch (System.ArgumentNullException)
+                catch( System.ArgumentNullException )
                 {
-                    return !m_options.Equals(new Options());
+                    return !m_options.Equals( new Options() );
                 }
             }
         }
@@ -66,7 +66,7 @@ namespace ProgramSettings
                 m_options = Options.read();
                 return true;
             }
-            catch (System.ArgumentNullException)
+            catch( System.ArgumentNullException )
             {
                 m_options = new Options();
                 return false;
@@ -84,14 +84,14 @@ namespace ProgramSettings
             return m_options.export();
         }
 
-        public bool import(MemoryStream stream)
+        public bool import( MemoryStream stream )
         {
             try
             {
-                m_options = Options.import(stream);
+                m_options = Options.import( stream );
                 return true;
             }
-            catch (System.InvalidOperationException)
+            catch( System.InvalidOperationException )
             {
                 return false;
             }
