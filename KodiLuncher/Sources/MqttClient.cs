@@ -6,6 +6,7 @@ using MQTTnet.Client;
 using MQTTnet.Client.Options;
 using MQTTnet.Client.Disconnecting;
 using KodiLuncher;
+using MQTTnet.Client.Receiving;
 
 namespace KodiLuncher.Sources
 {
@@ -57,9 +58,27 @@ namespace KodiLuncher.Sources
             }
         }
 
+        private void onMessage( MqttApplicationMessageReceivedEventArgs e )
+        {
+            var test = e.ApplicationMessage.ToString();
+        }
+
+        private void subscribeMessage()
+        {
+            m_mqttClient.ApplicationMessageReceivedHandler = new MqttApplicationMessageReceivedHandlerDelegate( e => onMessage( e ) ); ;
+
+            var mqttFactory = new MqttFactory();
+            var mqttSubscribeOptions = mqttFactory.CreateSubscribeOptionsBuilder()
+                .WithTopicFilter(f => { f.WithTopic("HTPC/kodi/command"); })
+                .Build();
+
+            m_mqttClient.SubscribeAsync( mqttSubscribeOptions, CancellationToken.None ).Wait();
+
+        }
+
         private void publishStatus( bool force = false )
         {
-            if( force && m_lastStatus != m_kodiLuncher.isKodiProcess() )
+            if( force || m_lastStatus != m_kodiLuncher.isKodiProcess() )
             {
                 m_lastStatus = m_kodiLuncher.isKodiProcess();
                 var applicationMessage = new MqttApplicationMessageBuilder()
@@ -100,6 +119,7 @@ namespace KodiLuncher.Sources
                                 {
                                     await m_mqttClient.ConnectAsync( mqttClientOptions, CancellationToken.None );
 
+                                    subscribeMessage();
                                     publishStatus( true );
                                 }
                                 else
