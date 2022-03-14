@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace KodiLuncher
 {
@@ -26,11 +27,11 @@ namespace KodiLuncher
         {
             get
             {
-                if (m_instance == null)
+                if( m_instance == null )
                 {
-                    lock (syncRoot)
+                    lock( syncRoot )
                     {
-                        if (m_instance == null)
+                        if( m_instance == null )
                             m_instance = new Kodi();
                     }
                 }
@@ -49,7 +50,7 @@ namespace KodiLuncher
             System.Diagnostics.Process processCodeBeautifier = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfoCodeBeautifier = new System.Diagnostics.ProcessStartInfo();
 
-            if (!System.IO.File.Exists(m_options.options.applicationSettings.Application))
+            if( !System.IO.File.Exists( m_options.options.applicationSettings.Application ) )
                 return;
 
             startInfoCodeBeautifier.FileName = m_options.options.applicationSettings.Application;
@@ -59,10 +60,10 @@ namespace KodiLuncher
             {
                 processCodeBeautifier.Start();
             }
-            catch (System.ComponentModel.Win32Exception /*e*/)
+            catch( System.ComponentModel.Win32Exception /*e*/)
             {
             }
-            catch (Exception /*e*/)
+            catch( Exception /*e*/)
             {
             }
         }
@@ -70,23 +71,38 @@ namespace KodiLuncher
         public void SetFocus()
         {
 
-            if (KodiLuncher.ContextMenu.contextDraw || KodiLuncher.ContextMenu.aboutDraw || KodiLuncher.ContextMenu.settingsDraw)
+            if( KodiLuncher.ContextMenu.contextDraw || KodiLuncher.ContextMenu.aboutDraw || KodiLuncher.ContextMenu.settingsDraw )
                 return;
 
-            var kodiProcess = System.Diagnostics.Process.GetProcesses().
-                     Where(pr => pr.ProcessName == "kodi");
-
-            foreach (var process in kodiProcess)
+            foreach( var process in kodiProcesses() )
             {
-                if (!process.HasExited)
+                if( !process.HasExited )
                 {
                     IntPtr handle = GetForegroundWindow();
-                    if (handle != process.MainWindowHandle)
+                    if( handle != process.MainWindowHandle )
                     {
-                        Console.WriteLine("Focused");
-                        ShowWindow(process.MainWindowHandle, SW_RESTORE);
-                        SetForegroundWindow(process.MainWindowHandle);
+                        Console.WriteLine( "Focused" );
+                        ShowWindow( process.MainWindowHandle, SW_RESTORE );
+                        SetForegroundWindow( process.MainWindowHandle );
                     }
+                }
+            }
+        }
+
+        public void Close()
+        {
+            foreach( var process in kodiProcesses() )
+            {
+                try
+                {
+                    process.CloseMainWindow();
+                    process.Close();
+                    Thread.Sleep( 1000 );
+                    if( !process.HasExited )
+                        process.Kill();
+                }
+                catch
+                {
                 }
             }
         }
@@ -94,25 +110,25 @@ namespace KodiLuncher
         public void Terminate()
         {
             killWer();
-            foreach (var process in kodiProcesses())
+            foreach( var process in kodiProcesses() )
             {
                 try
                 {
-                    if (!process.HasExited)
+                    if( !process.HasExited )
                         process.Kill();
                 }
-                catch ( System.ComponentModel.Win32Exception )
+                catch( System.ComponentModel.Win32Exception )
                 {
                     killWer();
                 }
-                
-                Console.WriteLine("Killed");
+
+                Console.WriteLine( "Killed" );
             }
         }
 
         private void killWer()
         {
-            foreach (var werProc in werProcess())
+            foreach( var werProc in werProcess() )
             {
                 werProc.Kill();
             }
@@ -126,25 +142,25 @@ namespace KodiLuncher
         private System.Collections.Generic.IEnumerable<System.Diagnostics.Process> kodiProcesses()
         {
             return System.Diagnostics.Process.GetProcesses().
-                     Where(pr => pr.ProcessName.CompareTo("kodi") == 0);
+                     Where( pr => pr.ProcessName.CompareTo( Path.GetFileNameWithoutExtension( m_options.options.applicationSettings.Application ) ) == 0 );
         }
 
         private System.Collections.Generic.IEnumerable<System.Diagnostics.Process> werProcess()
         {
             return System.Diagnostics.Process.GetProcesses().
-                     Where(pr => pr.ProcessName.CompareTo("WerFault") == 0);
+                     Where( pr => pr.ProcessName.CompareTo( "WerFault" ) == 0 );
         }
 
 
         private const uint SW_RESTORE = 0x09;
 
-        [DllImport("user32.dll")]
-        static extern IntPtr SetForegroundWindow(IntPtr hWnd);
+        [DllImport( "user32.dll" )]
+        static extern IntPtr SetForegroundWindow( IntPtr hWnd );
 
-        [DllImport("user32.dll")]
+        [DllImport( "user32.dll" )]
         static extern IntPtr GetForegroundWindow();
 
-        [DllImport("user32.dll")]
-        private static extern int ShowWindow(IntPtr hWnd, uint Msg);
+        [DllImport( "user32.dll" )]
+        private static extern int ShowWindow( IntPtr hWnd, uint Msg );
     }
 }

@@ -58,9 +58,24 @@ namespace KodiLuncher.Sources
             }
         }
 
-        private void onMessage( MqttApplicationMessageReceivedEventArgs e )
+        private async Task onMessage( MqttApplicationMessageReceivedEventArgs e )
         {
-            var test = e.ApplicationMessage.ToString();
+            try
+            {
+                var message = System.Text.Encoding.UTF8.GetString( e.ApplicationMessage.Payload );
+                if( !m_kodiLuncher.isKodiProcess() && message == "on" )
+                {
+                    m_kodiLuncher.Run();
+                }
+                else if( message == "off" )
+                {
+                    m_kodiLuncher.Close();
+                }
+
+                await publishStatus( true );
+            }
+            catch
+            { }
         }
 
         private void subscribeMessage()
@@ -76,17 +91,17 @@ namespace KodiLuncher.Sources
 
         }
 
-        private void publishStatus( bool force = false )
+        private async Task publishStatus( bool force = false )
         {
             if( force || m_lastStatus != m_kodiLuncher.isKodiProcess() )
             {
                 m_lastStatus = m_kodiLuncher.isKodiProcess();
                 var applicationMessage = new MqttApplicationMessageBuilder()
                                                     .WithTopic("HTPC/kodi/running")
-                                                    .WithPayload( m_lastStatus  ? "true" : "false")
+                                                    .WithPayload( m_lastStatus  ? "on" : "off")
                                                     .Build();
 
-                m_mqttClient.PublishAsync( applicationMessage, CancellationToken.None );
+                await m_mqttClient.PublishAsync( applicationMessage, CancellationToken.None );
             }
         }
 
@@ -120,11 +135,11 @@ namespace KodiLuncher.Sources
                                     await m_mqttClient.ConnectAsync( mqttClientOptions, CancellationToken.None );
 
                                     subscribeMessage();
-                                    publishStatus( true );
+                                    await publishStatus( true );
                                 }
                                 else
                                 {
-                                    publishStatus();
+                                    await publishStatus();
                                 }
                             }
                             catch
