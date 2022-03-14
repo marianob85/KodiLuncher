@@ -19,6 +19,7 @@ pipeline
 				checkout scm
 				bat '''
 					call "C:/BuildTools/VC/Auxiliary/Build/vcvars64.bat"
+					nuget restore KodiLuncher.sln
 					msbuild KodiLuncher.sln /t:Rebuild /p:Configuration=Release;Platform="Any CPU" /flp:logfile=warnings.log;warningsonly
 				'''
 				stash includes: "warnings.log", name: "warningsFiles"
