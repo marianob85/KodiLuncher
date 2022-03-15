@@ -23,7 +23,7 @@ pipeline
 					msbuild KodiLuncher.sln /t:Rebuild /p:Configuration=Release;Platform="Any CPU" /flp:logfile=warnings.log;warningsonly
 				'''
 				stash includes: "warnings.log", name: "warningsFiles"
-				stash includes: '**/out/**/KodiLuncher.exe, **/out/**/KodiLuncher.pdb', name: "bin"
+				stash includes: '**/out/**/KodiLuncher.exe, **/out/**/KodiLuncher.pdb, **/out/**/*.dll', name: "bin"
 			}
 		}
 		stage('Compile check'){
@@ -38,8 +38,7 @@ pipeline
 		stage('Archive'){
 			steps {
 				unstash "bin"
-				archiveArtifacts artifacts: '**/out/**/KodiLuncher.exe', fingerprint: true, onlyIfSuccessful: true
-				archiveArtifacts artifacts: '**/out/**/KodiLuncher.pdb', fingerprint: true, onlyIfSuccessful: true
+				archiveArtifacts artifacts: '*', fingerprint: true, onlyIfSuccessful: true
 			}
 		}
 	}
