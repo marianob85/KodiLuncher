@@ -14,7 +14,7 @@ pipeline
 	stages
 	{
 		stage('Build'){
-			agent{ label "windows/buildtools2019" }
+			agent{ label "windows/buildtools2022" }
 			steps {
 				checkout scm
 				bat '''
@@ -38,7 +38,7 @@ pipeline
 		stage('Archive'){
 			steps {
 				unstash "bin"
-				archiveArtifacts artifacts: '*', fingerprint: true, onlyIfSuccessful: true
+				archiveArtifacts artifacts: '**', fingerprint: true, onlyIfSuccessful: true
 			}
 		}
 	}
