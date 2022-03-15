@@ -24,8 +24,7 @@ namespace KodiLuncher
         private void CreateTimers()
         {
             m_watchDog = null;
-            //Ping(@"http:\\192.168.1.101:8083");
-
+            
             if (m_options.options.applicationSettings.AppWatchDog.Enable)
             {
                 m_watchDog = new System.Timers.Timer(m_options.options.applicationSettings.AppWatchDog.CheckInterval);

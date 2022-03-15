@@ -99,6 +99,7 @@ namespace KodiLuncher.Sources
                 var applicationMessage = new MqttApplicationMessageBuilder()
                                                     .WithTopic("HTPC/kodi/running")
                                                     .WithPayload( m_lastStatus  ? "on" : "off")
+                                                    .WithRetainFlag()
                                                     .Build();
 
                 await m_mqttClient.PublishAsync( applicationMessage, CancellationToken.None );
