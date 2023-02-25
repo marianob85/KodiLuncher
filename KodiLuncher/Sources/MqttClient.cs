@@ -20,8 +20,8 @@ namespace KodiLuncher.Sources
         private bool m_lastStatus = false;
         public MqttClient()
         {
-            m_options.OptionsChanged += new EventHandler( ( Object sender, EventArgs e ) => OptionsChanged() );
-            if( m_options.options.applicationSettings.Mqtt.Enable )
+            m_options.OptionsChanged += new EventHandler((Object sender, EventArgs e) => OptionsChanged());
+            if (m_options.options.applicationSettings.Mqtt.Enable)
                 ConnectClient();
         }
 
@@ -33,9 +33,9 @@ namespace KodiLuncher.Sources
 
         private void OptionsChanged()
         {
-            if( ( m_mqttClient != null ) != m_options.options.applicationSettings.Mqtt.Enable )
+            if ((m_mqttClient != null) != m_options.options.applicationSettings.Mqtt.Enable)
             {
-                if( m_options.options.applicationSettings.Mqtt.Enable )
+                if (m_options.options.applicationSettings.Mqtt.Enable)
                     ConnectClient();
                 else
                     DisconnectClient();
@@ -49,7 +49,7 @@ namespace KodiLuncher.Sources
 
         public void DisconnectClient()
         {
-            if( m_mqttClient != null )
+            if (m_mqttClient != null)
             {
                 CancellationToken ct = m_tokenSource2.Token;
                 m_tokenSource2.Cancel();
@@ -58,21 +58,21 @@ namespace KodiLuncher.Sources
             }
         }
 
-        private async Task onMessage( MqttApplicationMessageReceivedEventArgs e )
+        private async Task onMessage(MqttApplicationMessageReceivedEventArgs e)
         {
             try
             {
-                var message = System.Text.Encoding.UTF8.GetString( e.ApplicationMessage.Payload );
-                if( !m_kodiLuncher.isKodiProcess() && message == "on" )
+                var message = System.Text.Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
+                if (!m_kodiLuncher.isKodiProcess() && message == "on")
                 {
                     m_kodiLuncher.Run();
                 }
-                else if( message == "off" )
+                else if (message == "off")
                 {
                     m_kodiLuncher.Close();
                 }
 
-                await publishStatus( true );
+                await publishStatus(true);
             }
             catch
             { }
@@ -80,29 +80,29 @@ namespace KodiLuncher.Sources
 
         private void subscribeMessage()
         {
-            m_mqttClient.ApplicationMessageReceivedHandler = new MqttApplicationMessageReceivedHandlerDelegate( e => onMessage( e ) ); ;
+            m_mqttClient.ApplicationMessageReceivedHandler = new MqttApplicationMessageReceivedHandlerDelegate(e => onMessage(e)); ;
 
             var mqttFactory = new MqttFactory();
             var mqttSubscribeOptions = mqttFactory.CreateSubscribeOptionsBuilder()
                 .WithTopicFilter(f => { f.WithTopic("HTPC/kodi/command"); })
                 .Build();
 
-            m_mqttClient.SubscribeAsync( mqttSubscribeOptions, CancellationToken.None ).Wait();
+            m_mqttClient.SubscribeAsync(mqttSubscribeOptions, CancellationToken.None).Wait();
 
         }
 
-        private async Task publishStatus( bool force = false )
+        private async Task publishStatus(bool force = false)
         {
-            if( force || m_lastStatus != m_kodiLuncher.isKodiProcess() )
+            if (force || m_lastStatus != m_kodiLuncher.isKodiProcess())
             {
                 m_lastStatus = m_kodiLuncher.isKodiProcess();
                 var applicationMessage = new MqttApplicationMessageBuilder()
                                                     .WithTopic("HTPC/kodi/running")
-                                                    .WithPayload( m_lastStatus  ? "on" : "off")
+                                                    .WithPayload(m_lastStatus ? "on" : "off")
                                                     .WithRetainFlag()
                                                     .Build();
 
-                await m_mqttClient.PublishAsync( applicationMessage, CancellationToken.None );
+                await m_mqttClient.PublishAsync(applicationMessage, CancellationToken.None);
             }
         }
 
@@ -114,10 +114,10 @@ namespace KodiLuncher.Sources
             //using (var mqttClient = mqttFactory.CreateMqttClient())
             m_mqttClient = mqttFactory.CreateMqttClient();
 
-            var mqttClientOptions = new MqttClientOptionsBuilder().WithProtocolVersion( MQTTnet.Formatter.MqttProtocolVersion.V500 )
-                .WithTcpServer(  m_options.options.applicationSettings.Mqtt.Host, m_options.options.applicationSettings.Mqtt.Port )
-                .WithCredentials(m_options.options.applicationSettings.Mqtt.UserName, m_options.options.applicationSettings.Mqtt.Password )
-                .Build();
+            var mqttClientOptions = new MqttClientOptionsBuilder().WithProtocolVersion(MQTTnet.Formatter.MqttProtocolVersion.V500)
+                .WithTcpServer(m_options.options.applicationSettings.Mqtt.Host, m_options.options.applicationSettings.Mqtt.Port)
+                .WithCredentials(m_options.options.applicationSettings.Mqtt.UserName, m_options.options.applicationSettings.Mqtt.Password)
+                .WithClientId("HTPC").Build();
 
             m_server = Task.Run(
                 async () =>
@@ -125,18 +125,18 @@ namespace KodiLuncher.Sources
                         CancellationToken ct = m_tokenSource2.Token;
 
                         // User proper cancellation and no while(true).
-                        while( !ct.IsCancellationRequested )
+                        while (!ct.IsCancellationRequested)
                         {
                             try
                             {
                                 // This code will also do the very first connect! So no call to _ConnectAsync_ is required
                                 // in the first place.
-                                if( !m_mqttClient.IsConnected )
+                                if (!m_mqttClient.IsConnected)
                                 {
-                                    await m_mqttClient.ConnectAsync( mqttClientOptions, CancellationToken.None );
+                                    await m_mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
 
                                     subscribeMessage();
-                                    await publishStatus( true );
+                                    await publishStatus(true);
                                 }
                                 else
                                 {
@@ -150,13 +150,13 @@ namespace KodiLuncher.Sources
                             finally
                             {
                                 // Check the connection state every 5 seconds and perform a reconnect if required.
-                                await Task.Delay( TimeSpan.FromSeconds( 5 ) );
+                                await Task.Delay(TimeSpan.FromSeconds(5));
                             }
                         }
 
-                        m_mqttClient.DisconnectAsync( new MqttClientDisconnectOptions(), CancellationToken.None ).Wait();
+                        m_mqttClient.DisconnectAsync(new MqttClientDisconnectOptions(), CancellationToken.None).Wait();
                         m_mqttClient = null;
-                    } );
+                    });
         }
     }
 }
